@@ -30,10 +30,12 @@ public class ItemImpl {
 
     public Item findItemByName(String name){
         Query query = new Query(Criteria.where("name").is(name));
+
         return mongoTemplate.findOne(query, Item.class, COLLECTION);
     }
 
     public List<Item> findAll(){
+
         return (List<Item>) mongoTemplate.findAll(Item.class);
     }
 

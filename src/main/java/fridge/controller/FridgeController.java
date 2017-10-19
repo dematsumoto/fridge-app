@@ -1,6 +1,7 @@
 package fridge.controller;
 
 import fridge.domain.Item;
+import fridge.exception.ItemNotFoundException;
 import fridge.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,27 +23,20 @@ public class FridgeController {
 
     @Autowired
     ItemService itemService;
-//
-//    @RequestMapping("/fridge")
-//    public Item fridge() {
-//
-//        //Item itemResponse = itemService.findItem("ovos");
-//        //return itemResponse;
-//        return itemService.findItem("ovos");
-//    }
+
 
     @GetMapping(value = "/{item}")
     @ResponseBody
     public ResponseEntity<?> fridge(@PathVariable String item){
         log.info("Fetching item given name: {}", item);
 
-        try {
-            Item itemResponse = itemService.findItem(item);
-            return new ResponseEntity<>(itemResponse, HttpStatus.OK);
-        } catch (Exception exception) {
-            return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
-        }
+        Item itemResponse = itemService.findItem(item);
+        if (itemResponse == null) {
+            log.error("item not found: {0}", item);
+            throw new ItemNotFoundException("Item not found: {0}", item);
 
+        }
+        return new ResponseEntity<>(itemResponse, HttpStatus.OK);
 
     }
 
