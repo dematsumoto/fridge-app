@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 
 @Getter
 @Setter
-@ToString(exclude = "id")
+//@AllArgsConstructor
 public class Item {
 
     @Id
@@ -24,7 +24,7 @@ public class Item {
     public String validUntilDate;
     public boolean isActive;
 
-    public Item(){}
+    //public Item(){}
 
     public Item(String name, String startDate, String validUntilDate, boolean isActive) {
         this.name = name;

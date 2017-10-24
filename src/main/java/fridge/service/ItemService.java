@@ -1,15 +1,11 @@
 package fridge.service;
 
 import fridge.domain.Item;
-import fridge.domain.ItemImpl;
+import fridge.domain.repo.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.SimpleFormatter;
 
 /**
  * Created by douglas on 10/3/17.
@@ -18,15 +14,15 @@ import java.util.logging.SimpleFormatter;
 public class ItemService {
 
     @Autowired
-    ItemImpl itemImpl;
+    ItemRepository itemRepository;
 
 
     public Item findItem(String name){
-        return itemImpl.findItemByName(name);
+        return itemRepository.findItemByName(name);
     }
 
     public List<Item> findAllItems(){
-        return itemImpl.findAll();
+        return itemRepository.findAll();
     }
 
 
@@ -36,7 +32,7 @@ public class ItemService {
         String validUntilString = "01-03-2017";
 
         Item buceta = new Item("test", startDateString, validUntilString ,true);
-        itemImpl.create(buceta);
+        itemRepository.create(buceta);
 
     }
 }

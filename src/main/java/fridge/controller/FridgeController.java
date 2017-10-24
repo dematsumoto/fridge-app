@@ -46,9 +46,11 @@ public class FridgeController {
     }
 
     @RequestMapping("/fridgeAll")
-    public List<Item> fridgeAll() {
+    public ResponseEntity<?> fridgeAll() {
+        List<Item> itemList = itemService.findAllItems();
 
-        return itemService.findAllItems();
+        return new ResponseEntity<>(itemList, HttpStatus.OK);
+
     }
 }
 
