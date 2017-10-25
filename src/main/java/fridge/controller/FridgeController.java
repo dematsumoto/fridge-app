@@ -51,6 +51,11 @@ public class FridgeController {
     public ResponseEntity<?> fridgeAll() {
         List<Item> itemList = itemService.findAllItems();
 
+        if (itemList.isEmpty()){
+            log.error("No Items in the collection");
+            throw new ItemNotFoundException("Fridge is empty");
+        }
+
         return new ResponseEntity<>(itemList, HttpStatus.OK);
 
     }
@@ -62,6 +67,11 @@ public class FridgeController {
         itemService.postItem(item);
         log.info("Successfully posted Item");
         return new ResponseEntity<>(item, HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping(value = "/{item}")
+    public String deleteItem(@PathVariable String item){
+        return null;
     }
 }
 
