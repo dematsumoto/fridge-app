@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
+
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -51,6 +53,15 @@ public class FridgeController {
 
         return new ResponseEntity<>(itemList, HttpStatus.OK);
 
+    }
+
+    @PostMapping(value = "/addItem")
+    @ResponseBody
+    public ResponseEntity<?> itemPost(@RequestBody @Valid Item item) {
+        log.info("posting an Item", item);
+        itemService.postItem(item);
+        log.info("Successfully posted Item");
+        return new ResponseEntity<>(item, HttpStatus.ACCEPTED);
     }
 }
 

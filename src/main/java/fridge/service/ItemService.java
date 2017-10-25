@@ -37,4 +37,9 @@ public class ItemService {
         itemRepository.create(buceta);
 
     }
+
+    public void postItem(Item item){
+
+        itemRepository.create(item);
+    }
 }

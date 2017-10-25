@@ -25,8 +25,8 @@ public class ItemRepository {
     final String COLLECTION = "item";
 
     public void create(Item item){
-        mongoTemplate.insert(item);
 
+        mongoTemplate.save(item);
     }
 
     public Item findItemByName(String name){

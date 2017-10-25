@@ -29,4 +29,9 @@ public class Item {
         this.active = active;
     }
 
+    public boolean isActive(){
+        return this.active;
+    }
+
+
 }
