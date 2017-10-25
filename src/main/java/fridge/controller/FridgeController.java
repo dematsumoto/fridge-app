@@ -40,12 +40,12 @@ public class FridgeController {
 
     }
 
-    @RequestMapping("/create")
+    @GetMapping("/create")
     public void createItem(){
         itemService.create();
     }
 
-    @RequestMapping("/fridgeAll")
+    @GetMapping()
     public ResponseEntity<?> fridgeAll() {
         List<Item> itemList = itemService.findAllItems();
 

@@ -18,10 +18,12 @@ public class ItemService {
 
 
     public Item findItem(String name){
+
         return itemRepository.findItemByName(name);
     }
 
     public List<Item> findAllItems(){
+
         return itemRepository.findAll();
     }
 
