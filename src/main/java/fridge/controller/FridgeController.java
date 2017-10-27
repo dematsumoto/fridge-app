@@ -1,7 +1,6 @@
 package fridge.controller;
 
 import fridge.domain.Item;
-import fridge.domain.SuccessMessage;
 import fridge.exception.ItemNotFoundException;
 import fridge.service.ItemService;
 import static fridge.util.MessageUtils.messageBuilder;
@@ -44,9 +43,9 @@ public class FridgeController {
 
     }
 
-    @GetMapping("/create")
+    @GetMapping("/createSample")
     public void createItem(){
-        itemService.create();
+        itemService.createSample();
     }
 
     @GetMapping()
@@ -73,17 +72,36 @@ public class FridgeController {
 
     @DeleteMapping(value = "/{item}")
     @ResponseBody
-    public ResponseEntity<?> deleteItem(@PathVariable String item){
-        log.info("Deleting item given name: {}", item);
+    public ResponseEntity<?> deleteItem(@PathVariable String name){
+        log.info("Deleting item given name: {}", name);
+        Item itemResponse = itemService.removeItem(name);
 
-        Item itemResponse = itemService.removeItem(item);
         if (itemResponse == null) {
-            log.error("item not found: {0}", item);
-            throw new ItemNotFoundException("Item not found: {0}", item);
+            log.error("item not found: {0}", name);
+            throw new ItemNotFoundException("Item not found: {0}", name);
 
         }
+
         String message = "Item successfully removed: " + itemResponse.getName();
         return new ResponseEntity<>(messageBuilder(message), HttpStatus.OK);
+    }
+
+    @PostMapping(value="/update")
+    @ResponseBody
+    public ResponseEntity<?> updateItem(@RequestBody @Valid Item item) {
+        log.info("updating Item: {0}", item.getName());
+        Item itemResponse = itemService.updateItem(item);
+
+        if (itemResponse == null) {
+            log.error("item not found: {0}", item.getName());
+            throw new ItemNotFoundException("Item not found: {0}", item.getName());
+
+        }
+
+        log.info("Successfully updated Item");
+        String message = "Item successfully updated: " + itemResponse.getName();
+        return new ResponseEntity<>(messageBuilder(message), HttpStatus.OK);
+
     }
 }
 

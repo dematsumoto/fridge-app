@@ -28,7 +28,7 @@ public class ItemService {
     }
 
 
-    public void create() {
+    public void createSample() {
 
         String startDateString = "01-02-2017";
         String validUntilString = "01-03-2017";
@@ -47,5 +47,9 @@ public class ItemService {
 
         return itemRepository.removeItem(name);
 
+    }
+
+    public Item updateItem(Item item){
+        return itemRepository.updateItem(item);
     }
 }
