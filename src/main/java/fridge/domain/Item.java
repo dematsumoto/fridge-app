@@ -2,6 +2,8 @@ package fridge.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 
 /**
@@ -15,14 +17,15 @@ public class Item {
     @Id
     public String id;
 
+
     public String name;
-    public String startDate;
-    public String validUntilDate;
+    public LocalDateTime startDate;
+    public LocalDateTime validUntilDate;
     public boolean active;
 
     public Item(){}
 
-    public Item(String name, String startDate, String validUntilDate, boolean active) {
+    public Item(String name, LocalDateTime startDate, LocalDateTime validUntilDate, boolean active) {
         this.name = name;
         this.startDate = startDate;
         this.validUntilDate = validUntilDate;

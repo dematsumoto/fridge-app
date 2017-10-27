@@ -39,6 +39,7 @@ public class FridgeController {
             throw new ItemNotFoundException("Item not found: {0}", item);
 
         }
+
         return new ResponseEntity<>(itemResponse, HttpStatus.OK);
 
     }

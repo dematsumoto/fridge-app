@@ -2,6 +2,8 @@ package fridge.service;
 
 import fridge.domain.Item;
 import fridge.domain.repo.ItemRepository;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,10 +32,10 @@ public class ItemService {
 
     public void createSample() {
 
-        String startDateString = "01-02-2017";
-        String validUntilString = "01-03-2017";
+        LocalDateTime startDate = LocalDateTime.now();
+        LocalDateTime validUntilDate= startDate.plusDays(5);
 
-        Item sample = new Item("test", startDateString, validUntilString ,true);
+        Item sample = new Item("test", startDate, validUntilDate,true);
         itemRepository.create(sample);
 
     }
