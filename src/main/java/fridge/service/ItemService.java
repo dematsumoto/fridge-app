@@ -33,13 +33,19 @@ public class ItemService {
         String startDateString = "01-02-2017";
         String validUntilString = "01-03-2017";
 
-        Item buceta = new Item("test", startDateString, validUntilString ,true);
-        itemRepository.create(buceta);
+        Item sample = new Item("test", startDateString, validUntilString ,true);
+        itemRepository.create(sample);
 
     }
 
     public void postItem(Item item){
 
         itemRepository.create(item);
+    }
+
+    public Item removeItem(String name){
+
+        return itemRepository.removeItem(name);
+
     }
 }

@@ -1,8 +1,10 @@
 package fridge.controller;
 
 import fridge.domain.Item;
+import fridge.domain.SuccessMessage;
 import fridge.exception.ItemNotFoundException;
 import fridge.service.ItemService;
+import static fridge.util.MessageUtils.messageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,8 +72,18 @@ public class FridgeController {
     }
 
     @DeleteMapping(value = "/{item}")
-    public String deleteItem(@PathVariable String item){
-        return null;
+    @ResponseBody
+    public ResponseEntity<?> deleteItem(@PathVariable String item){
+        log.info("Deleting item given name: {}", item);
+
+        Item itemResponse = itemService.removeItem(item);
+        if (itemResponse == null) {
+            log.error("item not found: {0}", item);
+            throw new ItemNotFoundException("Item not found: {0}", item);
+
+        }
+        String message = "Item successfully removed: " + itemResponse.getName();
+        return new ResponseEntity<>(messageBuilder(message), HttpStatus.OK);
     }
 }
 
