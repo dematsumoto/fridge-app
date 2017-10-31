@@ -1,9 +1,10 @@
 package fridge.controller;
 
-import fridge.domain.Item;
+import fridge.domain.item.Item;
+import fridge.domain.item.ItemRequest;
 import fridge.exception.ItemNotFoundException;
 import fridge.service.ItemService;
-import static fridge.util.MessageUtils.messageBuilder;
+import fridge.util.ResponseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,19 +29,19 @@ public class FridgeController {
     ItemService itemService;
 
 
-    @GetMapping(value = "/{item}")
+    @GetMapping(value = "/{name}")
     @ResponseBody
-    public ResponseEntity<?> fridge(@PathVariable String item){
-        log.info("Fetching item given name: {}", item);
+    public ResponseEntity<?> fridge(@PathVariable String name){
+        log.info("Fetching item given name: {}", name);
 
-        Item itemResponse = itemService.findItem(item);
+        Item itemResponse = itemService.findItem(name);
         if (itemResponse == null) {
-            log.error("item not found: {0}", item);
-            throw new ItemNotFoundException("Item not found: {0}", item);
+            log.error("item not found: {0}", name);
+            throw new ItemNotFoundException("Item not found: {0}", name);
 
         }
 
-        return new ResponseEntity<>(itemResponse, HttpStatus.OK);
+        return ResponseBuilder.okItem(itemResponse);
 
     }
 
@@ -58,20 +59,20 @@ public class FridgeController {
             throw new ItemNotFoundException("Fridge is empty");
         }
 
-        return new ResponseEntity<>(itemList, HttpStatus.OK);
+        return ResponseBuilder.okItem(itemList);
 
     }
 
     @PostMapping(value = "/addItem")
     @ResponseBody
-    public ResponseEntity<?> itemPost(@RequestBody @Valid Item item) {
-        log.info("posting an Item", item);
+    public ResponseEntity<?> itemPost(@RequestBody @Valid ItemRequest item) {
+        log.info("posting an Item {}", item);
         itemService.postItem(item);
         log.info("Successfully posted Item");
         return new ResponseEntity<>(item, HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping(value = "/{item}")
+    @DeleteMapping(value = "/{name}")
     @ResponseBody
     public ResponseEntity<?> deleteItem(@PathVariable String name){
         log.info("Deleting item given name: {}", name);
@@ -84,12 +85,12 @@ public class FridgeController {
         }
 
         String message = "Item successfully removed: " + itemResponse.getName();
-        return new ResponseEntity<>(messageBuilder(message), HttpStatus.OK);
+        return ResponseBuilder.okMessage(message);
     }
 
     @PostMapping(value="/update")
     @ResponseBody
-    public ResponseEntity<?> updateItem(@RequestBody @Valid Item item) {
+    public ResponseEntity<?> updateItem(@RequestBody @Valid ItemRequest item) {
         log.info("updating Item: {0}", item.getName());
         Item itemResponse = itemService.updateItem(item);
 
@@ -101,7 +102,7 @@ public class FridgeController {
 
         log.info("Successfully updated Item");
         String message = "Item successfully updated: " + itemResponse.getName();
-        return new ResponseEntity<>(messageBuilder(message), HttpStatus.OK);
+        return ResponseBuilder.okMessage(message);
 
     }
 }

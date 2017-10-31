@@ -1,5 +1,6 @@
-package fridge.domain;
+package fridge.domain.item;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.joda.time.DateTime;

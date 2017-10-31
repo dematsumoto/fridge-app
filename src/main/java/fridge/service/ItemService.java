@@ -1,8 +1,11 @@
 package fridge.service;
 
-import fridge.domain.Item;
+import fridge.domain.item.Item;
+import fridge.domain.item.ItemRequest;
+import fridge.domain.item.ItemResponse;
 import fridge.domain.repo.ItemRepository;
-import org.joda.time.DateTime;
+import fridge.util.DateUtil;
+import fridge.util.ResponseBuilder;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,18 +23,14 @@ public class ItemService {
 
 
     public Item findItem(String name){
-
         return itemRepository.findItemByName(name);
     }
 
     public List<Item> findAllItems(){
-
         return itemRepository.findAll();
     }
 
-
     public void createSample() {
-
         LocalDateTime startDate = LocalDateTime.now();
         LocalDateTime validUntilDate= startDate.plusDays(5);
 
@@ -40,18 +39,24 @@ public class ItemService {
 
     }
 
-    public void postItem(Item item){
+    public void postItem(ItemRequest itemRequest){
+        Item item = new Item(itemRequest.getName(), DateUtil.stringToDateFormatter(itemRequest.getStartDate()),
+                DateUtil.stringToDateFormatter(itemRequest.getValidUntilDate()),
+                        itemRequest.isActive());
 
         itemRepository.create(item);
     }
 
     public Item removeItem(String name){
-
         return itemRepository.removeItem(name);
 
     }
 
-    public Item updateItem(Item item){
+    public Item updateItem(ItemRequest itemRequest){
+        Item item = new Item(itemRequest.getName(), DateUtil.stringToDateFormatter(itemRequest.getStartDate()),
+                DateUtil.stringToDateFormatter(itemRequest.getValidUntilDate()),
+                itemRequest.isActive());
+
         return itemRepository.updateItem(item);
     }
 }

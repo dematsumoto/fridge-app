@@ -1,9 +1,6 @@
 package fridge.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * Created by dmatsumoto on 10/26/17.
@@ -11,8 +8,8 @@ import lombok.ToString;
 
 @Setter
 @Getter
-@ToString
 @AllArgsConstructor
+@Builder
 public class SuccessMessage {
     private String ts;
     private String message;
