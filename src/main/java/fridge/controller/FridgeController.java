@@ -33,8 +33,8 @@ public class FridgeController {
     @ResponseBody
     public ResponseEntity<?> fridge(@PathVariable String name){
         log.info("Fetching item given name: {}", name);
-
         Item itemResponse = itemService.findItem(name);
+
         if (itemResponse == null) {
             log.error("item not found: {0}", name);
             throw new ItemNotFoundException("Item not found: {0}", name);

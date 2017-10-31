@@ -12,7 +12,6 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class ErrorEnvelope {
-    //private int httpStatus;
     private String ts;
     private String message;
 

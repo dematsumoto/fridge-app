@@ -1,13 +1,11 @@
 package fridge.controller.exception;
 
 import fridge.domain.error.ErrorEnvelope;
+import fridge.exception.InvalidAddItemCriteriaException;
 import fridge.exception.ItemNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -27,10 +25,18 @@ public class GlobalExceptionHandler {
         return new ErrorEnvelope(getLocalTimeNow(), notFoundException.getMessage());
     }
 
-    private String getLocalTimeNow(){
 
-        return LocalDateTime.now().toString();
+    @ExceptionHandler(InvalidAddItemCriteriaException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorEnvelope handlePostCriteriaException(InvalidAddItemCriteriaException ie){
+        return new ErrorEnvelope(getLocalTimeNow(), ie.getMessage());
+
     }
 
+    private String getLocalTimeNow(){
+        return LocalDateTime.now().toString();
+
+    }
 
 }
