@@ -29,7 +29,7 @@ public class FridgeController {
     ItemService itemService;
 
 
-    @GetMapping(value = "/{name}")
+    @RequestMapping(method = RequestMethod.GET, value = "/{name}")
     @ResponseBody
     public ResponseEntity<?> fridge(@PathVariable String name){
         log.info("Fetching item given name: {}", name);
@@ -45,12 +45,12 @@ public class FridgeController {
 
     }
 
-    @GetMapping("/createSample")
+    @RequestMapping(value = "/createSample", method = RequestMethod.GET)
     public void createItem(){
         itemService.createSample();
     }
 
-    @GetMapping()
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> fridgeAll() {
         List<Item> itemList = itemService.findAllItems();
 
@@ -63,7 +63,7 @@ public class FridgeController {
 
     }
 
-    @PostMapping(value = "/addItem")
+    @RequestMapping(value = "/addItem", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> itemPost(@RequestBody @Valid ItemRequest item) {
         log.info("posting an Item {}", item);
@@ -72,7 +72,7 @@ public class FridgeController {
         return new ResponseEntity<>(item, HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping(value = "/{name}")
+    @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity<?> deleteItem(@PathVariable String name){
         log.info("Deleting item given name: {}", name);
@@ -88,7 +88,7 @@ public class FridgeController {
         return ResponseBuilder.okMessage(message);
     }
 
-    @PostMapping(value="/update")
+    @RequestMapping(value="/update", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> updateItem(@RequestBody @Valid ItemRequest item) {
         log.info("updating Item: {0}", item.getName());
