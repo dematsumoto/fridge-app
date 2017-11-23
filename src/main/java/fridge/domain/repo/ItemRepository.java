@@ -1,6 +1,7 @@
 package fridge.domain.repo;
 
 import fridge.domain.item.Item;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -36,7 +37,7 @@ public class ItemRepository {
 
     public List<Item> findAll(){
 
-        return (List<Item>) mongoTemplate.findAll(Item.class);
+        return mongoTemplate.findAll(Item.class);
     }
 
     public Item removeItem(String name){
@@ -46,8 +47,14 @@ public class ItemRepository {
     }
 
     public Item updateItem(Item item){
-        Query query = new Query(Criteria.where("name").is(item.name));
-        mongoTemplate.updateFirst(query, Update.update("validUntilDate",item.validUntilDate), Item.class, ITEM_COLLECTION);
+        Query query = new Query(Criteria.where("_id").is(item.getId()));
+        mongoTemplate.updateFirst(query, Update.update("validUntilDate",item.getValidUntilDate()), Item.class, ITEM_COLLECTION);
+        return mongoTemplate.findOne(query, Item.class, ITEM_COLLECTION);
+    }
+
+    public Item updateItem(String id, LocalDateTime validUntilDate){
+        Query query = new Query(Criteria.where("_id").is(id));
+        mongoTemplate.updateFirst(query, Update.update("validUntilDate",validUntilDate), Item.class, ITEM_COLLECTION);
         return mongoTemplate.findOne(query, Item.class, ITEM_COLLECTION);
     }
 

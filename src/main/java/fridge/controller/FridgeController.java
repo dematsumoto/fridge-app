@@ -91,12 +91,12 @@ public class FridgeController {
     @RequestMapping(value="/update", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> updateItem(@RequestBody @Valid ItemRequest item) {
-        log.info("updating Item: {0}", item.getName());
+        log.info("updating Item: {}", item.getName());
         Item itemResponse = itemService.updateItem(item);
 
         if (itemResponse == null) {
-            log.error("item not found: {0}", item.getName());
-            throw new ItemNotFoundException("Item not found: {0}", item.getName());
+            log.error("item not found: {}", item.getName());
+            throw new ItemNotFoundException("Item not found: {}", item.getName());
 
         }
 

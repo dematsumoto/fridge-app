@@ -15,11 +15,11 @@ import lombok.Setter;
 @Builder
 public class ItemResponse {
 
-    public String id;
-    public String name;
-    public String startDate;
-    public String validUntilDate;
-    public boolean active;
+    private String id;
+    private String name;
+    private String startDate;
+    private String validUntilDate;
+    private boolean active;
 
     public ItemResponse(){}
 }

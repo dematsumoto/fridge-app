@@ -16,13 +16,13 @@ import org.springframework.data.annotation.Id;
 public class Item {
 
     @Id
-    public String id;
+    private String id;
 
 
-    public String name;
-    public LocalDateTime startDate;
-    public LocalDateTime validUntilDate;
-    public boolean active;
+    private String name;
+    private LocalDateTime startDate;
+    private LocalDateTime validUntilDate;
+    private boolean active;
 
     public Item(){}
 

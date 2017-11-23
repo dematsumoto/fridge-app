@@ -13,10 +13,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ItemRequest {
 
-    public String name;
-    public String startDate;
-    public String validUntilDate;
-    public boolean active;
+    private String id;
+    private String name;
+    private String startDate;
+    private String validUntilDate;
+    private boolean active;
 
     public ItemRequest(){}
 }

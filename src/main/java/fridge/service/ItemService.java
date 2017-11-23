@@ -72,10 +72,6 @@ public class ItemService {
             throw new InvalidAddItemCriteriaException("validUntilDate is required to update a Item");
         }
 
-        Item item = new Item(itemRequest.getName(), DateUtil.stringToDateFormatter(itemRequest.getStartDate()),
-                DateUtil.stringToDateFormatter(itemRequest.getValidUntilDate()),
-                itemRequest.isActive());
-
-        return itemRepository.updateItem(item);
+        return itemRepository.updateItem(itemRequest.getId(), DateUtil.stringToDateFormatter(itemRequest.getValidUntilDate()));
     }
 }
