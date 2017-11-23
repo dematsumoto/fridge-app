@@ -28,6 +28,10 @@ public class ItemService {
         return itemRepository.findItemByName(name);
     }
 
+    public Item findItemById(String id){
+        return itemRepository.findById(id);
+    }
+
     public List<Item> findAllItems(){
         return itemRepository.findAll();
     }
@@ -73,5 +77,13 @@ public class ItemService {
         }
 
         return itemRepository.updateItem(itemRequest.getId(), DateUtil.stringToDateFormatter(itemRequest.getValidUntilDate()));
+    }
+
+    public void inactivateItem(ItemRequest itemRequest){
+        if (StringUtils.isEmpty(itemRequest.getId())){
+            throw new InvalidAddItemCriteriaException("is is required to inactivate an Item");
+        }
+
+        itemRepository.inactivateItem(itemRequest.getId());
     }
 }

@@ -29,7 +29,7 @@ public class FridgeController {
     ItemService itemService;
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{name}")
+    @RequestMapping(method = RequestMethod.GET, value = "/item/{name}")
     @ResponseBody
     public ResponseEntity<?> fridge(@PathVariable String name){
         log.info("Fetching item given name: {}", name);
@@ -38,6 +38,22 @@ public class FridgeController {
         if (itemResponse == null) {
             log.error("item not found: {0}", name);
             throw new ItemNotFoundException("Item not found: {0}", name);
+
+        }
+
+        return ResponseBuilder.okItem(itemResponse);
+
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    @ResponseBody
+    public ResponseEntity<?> getById(@PathVariable String id){
+        log.info("Fetching item given id: {}", id);
+        Item itemResponse = itemService.findItemById(id);
+
+        if (itemResponse == null) {
+            log.error("item not found id: {0}", id);
+            throw new ItemNotFoundException("Item not found id: {0}", id);
 
         }
 
@@ -102,6 +118,26 @@ public class FridgeController {
 
         log.info("Successfully updated Item");
         String message = "Item successfully updated: " + itemResponse.getName();
+        return ResponseBuilder.okMessage(message);
+
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/{id}/status")
+    @ResponseBody
+    public ResponseEntity<?> inactivateItem(@PathVariable String id, @RequestBody ItemRequest itemRequest){
+        log.info("inactivating Item: {}", id);
+        Item itemResponse = itemService.findItemById(id);
+
+        if (itemResponse == null) {
+            log.error("item not found: {}", id);
+            throw new ItemNotFoundException("Item not found: {}", id);
+
+        }
+
+        itemService.inactivateItem(itemRequest);
+        log.info("Successfully inactivated Item");
+        String message = "Item successfully inactivated: " + itemResponse.getName();
         return ResponseBuilder.okMessage(message);
 
     }

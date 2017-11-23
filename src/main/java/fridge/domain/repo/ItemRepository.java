@@ -35,9 +35,14 @@ public class ItemRepository {
         return mongoTemplate.findOne(query, Item.class, ITEM_COLLECTION);
     }
 
-    public List<Item> findAll(){
+    public Item findById(String id){
+        Query query = new Query(Criteria.where("_id").is(id));
+        return mongoTemplate.findOne(query, Item.class, ITEM_COLLECTION);
+    }
 
-        return mongoTemplate.findAll(Item.class);
+    public List<Item> findAll(){
+        Query query = new Query(Criteria.where("active").is(true));
+        return mongoTemplate.find(query, Item.class, ITEM_COLLECTION);
     }
 
     public Item removeItem(String name){
@@ -46,16 +51,15 @@ public class ItemRepository {
 
     }
 
-    public Item updateItem(Item item){
-        Query query = new Query(Criteria.where("_id").is(item.getId()));
-        mongoTemplate.updateFirst(query, Update.update("validUntilDate",item.getValidUntilDate()), Item.class, ITEM_COLLECTION);
-        return mongoTemplate.findOne(query, Item.class, ITEM_COLLECTION);
-    }
-
     public Item updateItem(String id, LocalDateTime validUntilDate){
         Query query = new Query(Criteria.where("_id").is(id));
         mongoTemplate.updateFirst(query, Update.update("validUntilDate",validUntilDate), Item.class, ITEM_COLLECTION);
         return mongoTemplate.findOne(query, Item.class, ITEM_COLLECTION);
+    }
+
+    public void inactivateItem(String id){
+        Query query = new Query(Criteria.where("_id").is(id));
+        mongoTemplate.updateFirst(query, Update.update("active", false), Item.class, ITEM_COLLECTION);
     }
 
 }
