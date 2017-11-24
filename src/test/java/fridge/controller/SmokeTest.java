@@ -36,7 +36,7 @@ public class SmokeTest {
 
     @Test
     public void greetingShouldReturnDefaultMessage() throws Exception {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/greeting",
                 String.class)).contains("Greetings from Spring Boot! Fridge App");
     }
 }
