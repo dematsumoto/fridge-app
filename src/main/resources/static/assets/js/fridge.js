@@ -1,8 +1,9 @@
 function getAllItems(){
+	$("#table-all-items").empty();
 	var items;
 	$.getJSON( "/fridge", function(data){
 		items = data;
-		console.log("Fridge Items: " + JSON.stringify(data[0].name));
+		//console.log("Fridge Items: " + JSON.stringify(data[0].name));
 		//$("#all-fridge-items").append('<div>' + JSON.stringify(data) + '</div>');
         $.each(items, function(i,item) {
         	$("#table-all-items").append("<tr><td>" + item.name + "</td>" 
@@ -13,41 +14,47 @@ function getAllItems(){
 	});
 }
 
-function submitNewItem(){
-	$("#addNewItem").submit(function(e){
-		console.log("asd123");
-
-    e.preventDefault();
-
-    var data = {}
-    var Form = this;
-
-    //Gathering the Data
-    //and removing undefined keys(buttons)
-    $.each(this.elements, function(i, v){
-            var input = $(v);
-        data[input.attr("name")] = input.val();
-        delete data["undefined"];
-    });
-
-    //Form Validation goes here....
-
-    //Save Form Data........
-    $.ajax({
-        cache: false,
-        url : "fridge/addItem",
-        type: "POST",
-        dataType : "json",
-        data : JSON.stringify(data),
-        context : Form,
-        success : function(callback){
-            //Where $(this) => context == FORM
-            console.log(JSON.parse(callback));
-            $(this).html("Success!");
-        },
-        error : function(){
-            $(this).html("Error!");
-        }
-    });
-	})
+function postNewItem(newItem){
+	console.log("posting item");
+	$.ajax({
+    type: "POST",
+    url: "/fridge/addItem",
+    data: newItem,
+    contentType: "application/json; charset=utf-8",
+    dataType: "json"
+});
+	getAllItems();
 }
+
+(function() {
+	function toJSONString( form ) {
+		var obj = {};
+		var elements = form.querySelectorAll( "input" );
+		for( var i = 0; i < elements.length; ++i ) {
+			var element = elements[i];
+			var name = element.name;
+			var value = element.value;
+
+			if( name ) {
+				obj[ name ] = value;
+			}
+		}
+		obj.active = true;
+
+		return JSON.stringify( obj );
+	}
+
+	document.addEventListener( "DOMContentLoaded", function() {
+		var form = document.getElementById( "addItemForm" );
+		form.addEventListener( "submit", function( e ) {
+			e.preventDefault();
+			var item = toJSONString( this );
+			console.log(item);
+			postNewItem(item);
+			//postNewItem(JSON.stringify(item));
+
+		}, false);
+
+	});
+
+})();

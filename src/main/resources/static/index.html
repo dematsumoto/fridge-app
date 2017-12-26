@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8" />
 	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
@@ -287,7 +287,7 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="header">
-                                    <h4 class="title">Email Statistics</h4>
+                                    <h4 class="title">Statistics</h4>
                                     <p class="category">Last Campaign Performance</p>
                                 </div>
                                 <div class="content">
@@ -313,12 +313,12 @@
                                     <p class="category">Add item you want to track</p>
                                 </div>
                                 <div class="content">
-                                    <form id="addItemForm">
+                                    <form id="addItemForm" action="#" method="post">
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Name</label>
-                                                    <input type="text" class="form-control border-input" placeholder="Name">
+                                                    <input type="text" class="form-control border-input" placeholder="Name" name="name">
                                                 </div>
                                             </div>
                                         </div>
@@ -327,18 +327,18 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Start Date</label>
-                                                    <input type="text" class="form-control border-input" placeholder="yyyy-mm-dd">
+                                                    <input type="text" class="form-control border-input" placeholder="yyyy-mm-dd" name="startDate">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Expiration Date</label>
-                                                    <input type="text" class="form-control border-input" placeholder="yyyy-mm-dd">
+                                                    <input type="text" class="form-control border-input" placeholder="yyyy-mm-dd" name="validUntilDate">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="text-left">
-                                            <button type="submit" class="btn btn-info btn-fill btn-wd" onclick="submitNewItem()" > Add to Fridge</button>
+                                            <button type="submit" class="btn btn-info btn-fill btn-wd" > Add to Fridge</button>
                                         </div>
                                         <div class="clearfix"></div>
                                     </form>
