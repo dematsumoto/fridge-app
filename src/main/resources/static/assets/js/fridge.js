@@ -23,7 +23,7 @@ function postNewItem(newItem){
     contentType: "application/json; charset=utf-8",
     dataType: "json"
 });
-	getAllItems();
+	location.reload();
 }
 
 (function() {
