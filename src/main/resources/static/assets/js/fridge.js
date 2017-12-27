@@ -16,14 +16,47 @@ function getAllItems(){
 
 function postNewItem(newItem){
 	console.log("posting item");
-	$.ajax({
+	return $.ajax({
     type: "POST",
     url: "/fridge/addItem",
     data: newItem,
     contentType: "application/json; charset=utf-8",
     dataType: "json"
-});
-	location.reload();
+	})
+	//location.reload();
+}
+
+function addNewItem(newItem) {
+	postNewItem(newItem)
+		.done(addItemSuccess)
+		.fail((function(response) {
+			if (response.status != 202){
+				addItemFail();
+			}   
+       }));
+
+}
+
+function addItemSuccess(){
+	$.notify({
+            	icon: 'ti-check',
+            	message: "Your item has been successfully added to the fridge!"
+
+            },{
+                type: 'success',
+                timer: 4000
+            });
+}
+
+function addItemFail(){
+		$.notify({
+            	icon: 'ti-close',
+            	message: "Error: There is a problem with your item. "
+
+            },{
+                type: 'danger',
+                timer: 4000
+            });
 }
 
 (function() {
@@ -50,7 +83,7 @@ function postNewItem(newItem){
 			e.preventDefault();
 			var item = toJSONString( this );
 			console.log(item);
-			postNewItem(item);
+			addNewItem(item);
 			//postNewItem(JSON.stringify(item));
 
 		}, false);
