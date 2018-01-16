@@ -25,6 +25,8 @@
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="assets/css/demo.css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 
     <!--  Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -270,6 +272,7 @@
                                             <th>Name</th>
                                             <th>Start Date</th>
                                             <th>Expiration Date</th>
+                                            <th>Actions</th>
                                         </thead>
                                         <tbody></tbody>
                                     </table>
@@ -327,15 +330,15 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Start Date</label>
-                                                    <input type="text" class="form-control border-input" placeholder="yyyy-mm-dd" name="startDate">
+                                                    <input type="text" class="form-control border-input datepicker" placeholder="yyyy-mm-dd" name="startDate">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Expiration Date</label>
-                                                    <input type="text" class="form-control border-input" placeholder="yyyy-mm-dd" name="validUntilDate">
+                                                    <input type="text" class="form-control border-input datepicker" placeholder="yyyy-mm-dd" name="validUntilDate">
                                                 </div>
-                                            </div>
+                                            </div> 
                                         </div>
                                         <div class="text-left">
                                             <button type="submit" class="btn btn-info btn-fill btn-wd" > Add to Fridge</button>
@@ -405,9 +408,6 @@
 <!--  Notifications Plugin    -->
 <script src="assets/js/bootstrap-notify.js"></script>
 
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
-
 <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 <script src="assets/js/paper-dashboard.js"></script>
 
@@ -417,20 +417,23 @@
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
 
+<!-- UI Plugins such as datePicker -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script type="text/javascript">
    $(document).ready(function(){
 
             
         	demo.initChartist();
 
-        	$.notify({
-            	icon: 'ti-gift',
-            	message: "Welcome to <b>Paper Dashboard</b> - a beautiful Bootstrap freebie for your next project."
+        	// $.notify({
+         //    	icon: 'ti-gift',
+         //    	message: "Welcome to <b>Paper Dashboard</b> - a beautiful Bootstrap freebie for your next project."
 
-            },{
-                type: 'success',
-                timer: 4000
-            });
+         //    },{
+         //        type: 'success',
+         //        timer: 4000
+         //    });
             
 
             getAllItems();

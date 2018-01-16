@@ -1,14 +1,17 @@
 function getAllItems(){
-	$("#table-all-items").empty();
+	$('#table-all-items tr:gt(0)').remove();
 	var items;
 	$.getJSON( "/fridge", function(data){
 		items = data;
-		//console.log("Fridge Items: " + JSON.stringify(data[0].name));
-		//$("#all-fridge-items").append('<div>' + JSON.stringify(data) + '</div>');
         $.each(items, function(i,item) {
-        	$("#table-all-items").append("<tr><td>" + item.name + "</td>" 
+        	var itemName = item.name;
+        	var editIconHtml = "<td> <a href=\"#\"><i class=\"ti-pencil icon-medium icon-info\"></i></a>";
+			var deleteIconHtml = "<a href=\"#\" onclick=\"deleteRequest()\" ><i class=\"ti-trash icon-medium icon-danger\"></i></a> </td></tr>";
+        	$("#table-all-items").append("<tr><td class=\"name\">" + item.name + "</td>" 
         		+ "<td>" + item.startDate + " </td>"
-        		+ "<td>" + item.validUntilDate + "</td></tr>");
+        		+ "<td>" + item.validUntilDate + "</td>"
+        		+ editIconHtml
+        		+ deleteIconHtml);
         });
 
 	});
@@ -23,7 +26,6 @@ function postNewItem(newItem){
     contentType: "application/json; charset=utf-8",
     dataType: "json"
 	})
-	//location.reload();
 }
 
 function addNewItem(newItem) {
@@ -46,6 +48,9 @@ function addItemSuccess(){
                 type: 'success',
                 timer: 4000
             });
+	var form = document.getElementById("addItemForm");
+	form.reset();
+	getAllItems();	
 }
 
 function addItemFail(){
@@ -57,6 +62,18 @@ function addItemFail(){
                 type: 'danger',
                 timer: 4000
             });
+}
+
+function deleteRequest(){
+	var item = $(this);
+	console.log(item);
+	$.ajax({
+    url: '/' + item,
+    type: 'DELETE',
+    success: function(result) {
+        console.log(item + " deleted");
+    }
+});
 }
 
 (function() {
@@ -84,10 +101,14 @@ function addItemFail(){
 			var item = toJSONString( this );
 			console.log(item);
 			addNewItem(item);
-			//postNewItem(JSON.stringify(item));
-
 		}, false);
 
 	});
 
 })();
+
+$(function() {
+
+	$( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
+
+});

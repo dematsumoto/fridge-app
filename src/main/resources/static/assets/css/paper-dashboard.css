@@ -1563,6 +1563,9 @@ textarea.form-control {
   .card .icon-big {
     font-size: 3em;
     min-height: 64px; }
+  .card .icon-medium {
+    font-size: 2em;
+    min-height: 64px; }    
   .card .numbers {
     font-size: 2em;
     text-align: right; }
