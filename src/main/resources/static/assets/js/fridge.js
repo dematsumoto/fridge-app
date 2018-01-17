@@ -1,21 +1,32 @@
 function getAllItems(){
 	$('#table-all-items tr:gt(0)').remove();
 	var items;
-	$.getJSON( "/fridge", function(data){
+	$.getJSON( "/fridge")
+	    .done(function(data){
 		items = data;
         $.each(items, function(i,item) {
         	var itemName = item.name;
         	var editIconHtml = "<td> <a href=\"#\"><i class=\"ti-pencil icon-medium icon-info\"></i></a>";
 			var deleteIconHtml = "<a href=\"#\" onclick=\"deleteRequest()\" ><i class=\"ti-trash icon-medium icon-danger\"></i></a> </td></tr>";
-        	$("#table-all-items").append("<tr><td class=\"name\">" + item.name + "</td>" 
+        	$("#table-all-items").append("<tr><td class=\"name\">" + item.name + "</td>"
         		+ "<td>" + item.startDate + " </td>"
         		+ "<td>" + item.validUntilDate + "</td>"
         		+ editIconHtml
         		+ deleteIconHtml);
         });
 
+	})
+	.fail(function(response){
+	    databaseUnavailableError(response.responseJSON.message);
 	});
 }
+
+function databaseUnavailableError(message){
+        $.notify({
+            icon: 'ti-close', message: message}, {
+            type: 'danger', timer: 4000
+            });
+};
 
 function postNewItem(newItem){
 	console.log("posting item");
@@ -32,11 +43,13 @@ function addNewItem(newItem) {
 	postNewItem(newItem)
 		.done(addItemSuccess)
 		.fail((function(response) {
-			if (response.status != 202){
-				addItemFail();
-			}   
+			if (response.status == 503){
+				databaseUnavailableError("Database unavailable. Try again later");
+			}
+			else {
+			    addItemFail();
+			}
        }));
-
 }
 
 function addItemSuccess(){
