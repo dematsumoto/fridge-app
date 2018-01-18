@@ -4,10 +4,14 @@ function getAllItems(){
 	$.getJSON( "/fridge")
 	    .done(function(data){
 		items = data;
+		if (!items.length > 0){
+            emptyFridgeNotification();
+            return;
+		}
         $.each(items, function(i,item) {
         	var itemName = item.name;
         	var editIconHtml = "<td> <a href=\"#\"><i class=\"ti-pencil icon-medium icon-info\"></i></a>";
-			var deleteIconHtml = "<a href=\"#\" onclick=\"deleteRequest()\" ><i class=\"ti-trash icon-medium icon-danger\"></i></a> </td></tr>";
+			var deleteIconHtml = "<a href=\"#\" onclick=\"deleteRequest(this)\" ><i class=\"ti-trash icon-medium icon-danger\"></i></a> </td></tr>";
         	$("#table-all-items").append("<tr><td class=\"name\">" + item.name + "</td>"
         		+ "<td>" + item.startDate + " </td>"
         		+ "<td>" + item.validUntilDate + "</td>"
@@ -17,19 +21,25 @@ function getAllItems(){
 
 	})
 	.fail(function(response){
-	    databaseUnavailableError(response.responseJSON.message);
+	    errorNotification(response.responseJSON.message);
 	});
 }
 
-function databaseUnavailableError(message){
+function errorNotification(message){
         $.notify({
             icon: 'ti-close', message: message}, {
             type: 'danger', timer: 4000
             });
 };
 
+function emptyFridgeNotification(){
+            $.notify({
+                icon: 'ti-info-alt', message: "Fridge is empty"}, {
+                type: 'info', timer: 4000
+                });
+}
+
 function postNewItem(newItem){
-	console.log("posting item");
 	return $.ajax({
     type: "POST",
     url: "/fridge/addItem",
@@ -44,47 +54,35 @@ function addNewItem(newItem) {
 		.done(addItemSuccess)
 		.fail((function(response) {
 			if (response.status == 503){
-				databaseUnavailableError("Database unavailable. Try again later");
+				errorNotification("Database unavailable. Try again later");
 			}
 			else {
-			    addItemFail();
+			    errorNotification("Error: There is a problem with your item.");
 			}
        }));
 }
 
 function addItemSuccess(){
-	$.notify({
-            	icon: 'ti-check',
-            	message: "Your item has been successfully added to the fridge!"
-
-            },{
-                type: 'success',
-                timer: 4000
-            });
+    successNotification("Your item has been successfully added to the fridge!");
 	var form = document.getElementById("addItemForm");
 	form.reset();
 	getAllItems();	
 }
 
-function addItemFail(){
-		$.notify({
-            	icon: 'ti-close',
-            	message: "Error: There is a problem with your item. "
-
-            },{
-                type: 'danger',
-                timer: 4000
-            });
+function successNotification(message){
+    $.notify({icon: 'ti-check', message: message},{
+                    type: 'success', timer: 4000
+                });
 }
 
-function deleteRequest(){
-	var item = $(this);
-	console.log(item);
+function deleteRequest(trashIcon){
+	var item = $(trashIcon).closest('tr').find('.name').text();
 	$.ajax({
-    url: '/' + item,
+    url: '/fridge/' + item,
     type: 'DELETE',
     success: function(result) {
-        console.log(item + " deleted");
+        successNotification(item + " removed from fridge!");
+        getAllItems();
     }
 });
 }
@@ -112,7 +110,6 @@ function deleteRequest(){
 		form.addEventListener( "submit", function( e ) {
 			e.preventDefault();
 			var item = toJSONString( this );
-			console.log(item);
 			addNewItem(item);
 		}, false);
 
@@ -121,7 +118,5 @@ function deleteRequest(){
 })();
 
 $(function() {
-
 	$( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
-
 });

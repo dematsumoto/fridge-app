@@ -38,11 +38,9 @@ public class FridgeController {
         if (itemResponse == null) {
             log.error("item not found: {0}", name);
             throw new ItemNotFoundException("Item not found: {0}", name);
-
         }
 
         return ResponseBuilder.okItem(itemResponse);
-
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
@@ -54,11 +52,9 @@ public class FridgeController {
         if (itemResponse == null) {
             log.error("item not found id: {0}", id);
             throw new ItemNotFoundException("Item not found id: {0}", id);
-
         }
 
         return ResponseBuilder.okItem(itemResponse);
-
     }
 
     @RequestMapping(value = "/createSample", method = RequestMethod.GET)
@@ -72,11 +68,9 @@ public class FridgeController {
 
         if (itemList.isEmpty()){
             log.error("No Items in the collection");
-            throw new ItemNotFoundException("Fridge is empty");
         }
 
         return ResponseBuilder.okItem(itemList);
-
     }
 
     @RequestMapping(value = "/addItem", method = RequestMethod.POST)
@@ -97,7 +91,6 @@ public class FridgeController {
         if (itemResponse == null) {
             log.error("item not found: {0}", name);
             throw new ItemNotFoundException("Item not found: {0}", name);
-
         }
 
         String message = "Item successfully removed: " + itemResponse.getName();
@@ -113,13 +106,11 @@ public class FridgeController {
         if (itemResponse == null) {
             log.error("item not found: {}", item.getName());
             throw new ItemNotFoundException("Item not found: {}", item.getName());
-
         }
 
         log.info("Successfully updated Item");
         String message = "Item successfully updated: " + itemResponse.getName();
         return ResponseBuilder.okMessage(message);
-
     }
 
 
@@ -132,14 +123,12 @@ public class FridgeController {
         if (itemResponse == null) {
             log.error("item not found: {}", id);
             throw new ItemNotFoundException("Item not found: {}", id);
-
         }
 
         itemService.inactivateItem(itemRequest);
         log.info("Successfully inactivated Item");
         String message = "Item successfully inactivated: " + itemResponse.getName();
         return ResponseBuilder.okMessage(message);
-
     }
 }
 
