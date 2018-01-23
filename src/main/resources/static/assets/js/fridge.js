@@ -1,16 +1,19 @@
+var itemList = null;
+
 function getAllItems(){
 	$('#table-all-items tr:gt(0)').remove();
 	var items;
 	$.getJSON( "/fridge")
 	    .done(function(data){
 		items = data;
+		itemList = data;
 		if (!items.length > 0){
             emptyFridgeNotification();
             return;
 		}
         $.each(items, function(i,item) {
         	var itemName = item.name;
-        	var editIconHtml = "<td> <a href=\"#\"><i class=\"ti-pencil icon-medium icon-info\"></i></a>";
+        	var editIconHtml = "<td> <a href=\"#\" onclick=\"editItem(this)\"><i class=\"ti-pencil icon-medium icon-info\"></i></a>";
 			var deleteIconHtml = "<a href=\"#\" onclick=\"deleteRequest(this)\" ><i class=\"ti-trash icon-medium icon-danger\"></i></a> </td></tr>";
         	$("#table-all-items").append("<tr><td class=\"name\">" + item.name + "</td>"
         		+ "<td>" + item.startDate + " </td>"
@@ -87,6 +90,8 @@ function deleteRequest(trashIcon){
 });
 }
 
+
+//Form completion
 (function() {
 	function toJSONString( form ) {
 		var obj = {};
@@ -114,8 +119,34 @@ function deleteRequest(trashIcon){
 		}, false);
 
 	});
-
 })();
+
+
+
+function editItem(item){
+	//var editableText = $("<textarea />");
+
+	var rowIndex = $(item).closest('tr').index();
+	var itemTableRows = $("#table-all-items")[0].rows[rowIndex+1];
+	//var nameCell = itemTableRows.cells[0];
+	//var cellContent = nameCell.innerHTML;
+	//var tableCollection = $("#table-all-items")[0].rows;
+	var tableLength = $("#table-all-items")[0].rows.length;
+	var cell;
+
+	for (let i=0; i < tableLength-1; i++){
+		cell = $("#table-all-items")[0].rows[rowIndex+1].cells[i];
+		//editableText.val(cell.innerHTML);
+		console.log(i, cell, cell.innerText);
+		//cell.replaceWith(editableText);
+	}
+
+	//editableText.val(cellContent);
+	//$(nameCell).replaceWith(editableText);
+
+	//editableText.focus();
+}
+
 
 $(function() {
 	$( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
