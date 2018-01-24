@@ -1,4 +1,5 @@
 var itemList = null;
+var currentItem = null;
 
 function getAllItems(){
 	$('#table-all-items tr:gt(0)').remove();
@@ -13,7 +14,7 @@ function getAllItems(){
 		}
         $.each(items, function(i,item) {
         	var itemName = item.name;
-        	var editIconHtml = "<td> <a href=\"#\" onclick=\"editItem(this)\"><i class=\"ti-pencil icon-medium icon-info\"></i></a>";
+        	var editIconHtml = "<td> <a href=\"#\" onclick=\"editItemModal(this)\"><i class=\"ti-pencil icon-medium icon-info\"></i></a>";
 			var deleteIconHtml = "<a href=\"#\" onclick=\"deleteRequest(this)\" ><i class=\"ti-trash icon-medium icon-danger\"></i></a> </td></tr>";
         	$("#table-all-items").append("<tr><td class=\"name\">" + item.name + "</td>"
         		+ "<td>" + item.startDate + " </td>"
@@ -90,61 +91,95 @@ function deleteRequest(trashIcon){
 });
 }
 
+function postItemForUpdate(item){
+	return $.ajax({
+    type: "POST",
+    url: "/fridge/update",
+    data: item,
+    contentType: "application/json; charset=utf-8",
+    dataType: "json"
+	})
+}
 
-//Form completion
-(function() {
-	function toJSONString( form ) {
-		var obj = {};
-		var elements = form.querySelectorAll( "input" );
-		for( var i = 0; i < elements.length; ++i ) {
-			var element = elements[i];
-			var name = element.name;
-			var value = element.value;
-
-			if( name ) {
-				obj[ name ] = value;
+function updateItem(item) {
+	postItemForUpdate(item)
+		.done(addItemSuccess)
+		.fail((function(response) {
+			if (response.status == 503){
+				errorNotification("Database unavailable. Try again later");
 			}
-		}
-		obj.active = true;
+			else {
+			    errorNotification("Error: There is a problem with your item.");
+			}
+       }));
+}
 
-		return JSON.stringify( obj );
-	}
 
+//Form submition (New Item)
+(function() {
 	document.addEventListener( "DOMContentLoaded", function() {
 		var form = document.getElementById( "addItemForm" );
-		form.addEventListener( "submit", function( e ) {
+		form.addEventListener("submit", function(e) {
 			e.preventDefault();
-			var item = toJSONString( this );
+			var item = toJSONString(this);
 			addNewItem(item);
 		}, false);
-
 	});
 })();
 
 
+//Form submition (Edit Item)
+(function() {
+	document.addEventListener( "DOMContentLoaded", function() {
+		var form = document.getElementById("editItemForm");
+		form.addEventListener("submit", function(e) {
+			e.preventDefault();
+			var item = toJSONString(this);
 
-function editItem(item){
-	//var editableText = $("<textarea />");
+			//workaround to append id to payload
+			let itemObj = JSON.parse(item);
+			itemObj.id = currentItem.id;
+			let itemStr = JSON.stringify(itemObj);
 
-	var rowIndex = $(item).closest('tr').index();
-	var itemTableRows = $("#table-all-items")[0].rows[rowIndex+1];
-	//var nameCell = itemTableRows.cells[0];
-	//var cellContent = nameCell.innerHTML;
-	//var tableCollection = $("#table-all-items")[0].rows;
-	var tableLength = $("#table-all-items")[0].rows.length;
-	var cell;
+			console.log("posting item to update", itemStr);
+			//updateItem(itemStr);
+			$('#itemEditModal').modal('hide');
+		}, false);
+	});
+})();
 
-	for (let i=0; i < tableLength-1; i++){
-		cell = $("#table-all-items")[0].rows[rowIndex+1].cells[i];
-		//editableText.val(cell.innerHTML);
-		console.log(i, cell, cell.innerText);
-		//cell.replaceWith(editableText);
+function toJSONString(form) {
+	var obj = {};
+	var elements = form.querySelectorAll( "input" );
+	for( var i = 0; i < elements.length; ++i ) {
+		var element = elements[i];
+		var name = element.name;
+		var value = element.value;
+
+		if (name) {
+			obj[name] = value;
+		}
 	}
+	obj.active = true;
+	return JSON.stringify(obj);
+}
 
-	//editableText.val(cellContent);
-	//$(nameCell).replaceWith(editableText);
+function editItemModal(item){
+	var rowIndex = $(item).closest('tr').index();
+	currentItem = itemList[rowIndex];
+	itemTableRow = document.getElementById("table-all-items").rows[rowIndex+1];
 
-	//editableText.focus();
+
+	var nameCell = itemTableRow.cells[0].innerText;
+	var startDateCell = itemTableRow.cells[1].innerText;
+	var expiryDateCell = itemTableRow.cells[2].innerText;
+
+	//set input fileds from table values
+	document.getElementById("editName").value = nameCell;
+	document.getElementById("editSD").value = startDateCell;
+	document.getElementById("editED").value = expiryDateCell;
+
+	$('#itemEditModal').modal();
 }
 
 

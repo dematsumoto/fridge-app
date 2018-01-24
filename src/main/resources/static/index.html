@@ -44,7 +44,7 @@
 		Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
 	-->
 
-   <div class="sidebar-wrapper">
+ <div class="sidebar-wrapper">
     <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text">
             Creative Tim
@@ -104,6 +104,50 @@
 </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="itemEditModal" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Item</h5>
+    </div>
+    <div class="modal-body">
+        <form id="editItemForm" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input id="editName" type="text" class="form-control border-input" name="name">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input id="editSD" type="text" class="form-control border-input datepicker" name="startDate">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Expiration Date</label>
+                        <input id="editED" type="text" class="form-control border-input datepicker" name="validUntilDate">
+                    </div>
+                </div> 
+            </div>
+            <div class="clearfix"></div>
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-fill btn-wd" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success btn-fill btn-wd">Save changes</button>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+
 <div class="main-panel">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -134,9 +178,6 @@
                     <ul class="dropdown-menu">
                         <li><a href="#">Notification 1</a></li>
                         <li><a href="#">Notification 2</a></li>
-                        <li><a href="#">Notification 3</a></li>
-                        <li><a href="#">Notification 4</a></li>
-                        <li><a href="#">Another notification</a></li>
                     </ul>
                 </li>
                 <li>
@@ -346,8 +387,8 @@
                                         <div class="clearfix"></div>
                                     </form>
                                     <div class="footer">
-                                    <div class="chart-legend">
-                                    </div>
+                                        <div class="chart-legend">
+                                        </div>
                                         <hr>
                                         <div class="stats">
                                             <i class="ti-check"></i> Data information certified
@@ -373,10 +414,10 @@
                             </li>
                             <li>
                                 <a href="http://blog.creative-tim.com">
-                                 Blog
-                             </a>
-                         </li>
-                         <li>
+                                   Blog
+                               </a>
+                           </li>
+                           <li>
                             <a href="http://www.creative-tim.com/license">
                                 Licenses
                             </a>
@@ -421,25 +462,11 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script type="text/javascript">
-   $(document).ready(function(){
+ $(document).ready(function(){
+   demo.initChartist();
+   getAllItems();
+});
 
-            
-        	demo.initChartist();
+</script>
 
-        	// $.notify({
-         //    	icon: 'ti-gift',
-         //    	message: "Welcome to <b>Paper Dashboard</b> - a beautiful Bootstrap freebie for your next project."
-
-         //    },{
-         //        type: 'success',
-         //        timer: 4000
-         //    });
-            
-
-            getAllItems();
-
-        });
-
-    </script>
-
-    </html>
+</html>
