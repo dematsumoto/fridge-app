@@ -68,6 +68,10 @@ public class ItemService {
     }
 
     public Item updateItem(ItemRequest itemRequest){
+        if (StringUtils.isEmpty(itemRequest.getId())){
+            throw new InvalidAddItemCriteriaException("id is required to update a Item");
+        }
+
         if (StringUtils.isEmpty(itemRequest.getName())){
             throw new InvalidAddItemCriteriaException("name is required to update a Item");
         }
@@ -76,7 +80,11 @@ public class ItemService {
             throw new InvalidAddItemCriteriaException("validUntilDate is required to update a Item");
         }
 
-        return itemRepository.updateItem(itemRequest.getId(), DateUtil.stringToDateFormatter(itemRequest.getValidUntilDate()));
+        Item item = new Item(itemRequest.getId(),itemRequest.getName(), DateUtil.stringToDateFormatter(itemRequest.getStartDate()),
+                DateUtil.stringToDateFormatter(itemRequest.getValidUntilDate()),
+                itemRequest.isActive());
+
+        return itemRepository.updateItem(item);
     }
 
     public void inactivateItem(ItemRequest itemRequest){

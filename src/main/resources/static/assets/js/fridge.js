@@ -14,32 +14,51 @@ function getAllItems(){
 		}
         $.each(items, function(i,item) {
         	var itemName = item.name;
-        	var editIconHtml = "<td> <a href=\"#\" onclick=\"editItemModal(this)\"><i class=\"ti-pencil icon-medium icon-info\"></i></a>";
-			var deleteIconHtml = "<a href=\"#\" onclick=\"deleteRequest(this)\" ><i class=\"ti-trash icon-medium icon-danger\"></i></a> </td></tr>";
         	$("#table-all-items").append("<tr><td class=\"name\">" + item.name + "</td>"
         		+ "<td>" + item.startDate + " </td>"
         		+ "<td>" + item.validUntilDate + "</td>"
-        		+ editIconHtml
-        		+ deleteIconHtml);
+        		+ "<td>"
+        		+ generateEditIconTableCell()
+        		+ generateDeleteIconTableCell())
+        		+ "</td></tr>";
         });
-
 	})
 	.fail(function(response){
 	    errorNotification(response.responseJSON.message);
 	});
+
+	function generateEditIconTableCell(){
+		var editIconHtml = [];
+		editIconHtml.push(
+			"<a href=\"#\" onclick=\"editItemModal(this)\">",
+			"<i class=\"ti-pencil icon-medium icon-info\">",
+			"</i></a>"
+			);
+		return editIconHtml.join("");
+	}
+
+	function generateDeleteIconTableCell(){
+	var DeleteIconHtml = [];
+	DeleteIconHtml.push(
+			"<a href=\"#\" onclick=\"deleteRequest(this)\">",
+			"<i class=\"ti-trash icon-medium icon-danger\">",
+			"</i></a>"
+		);
+	return DeleteIconHtml.join("");
+	}
 }
 
 function errorNotification(message){
         $.notify({
             icon: 'ti-close', message: message}, {
-            type: 'danger', timer: 4000
+            type: 'danger', timer: 3000
             });
 };
 
 function emptyFridgeNotification(){
             $.notify({
                 icon: 'ti-info-alt', message: "Fridge is empty"}, {
-                type: 'info', timer: 4000
+                type: 'info', timer: 3000
                 });
 }
 
@@ -75,7 +94,7 @@ function addItemSuccess(){
 
 function successNotification(message){
     $.notify({icon: 'ti-check', message: message},{
-                    type: 'success', timer: 4000
+                    type: 'success', timer: 3000
                 });
 }
 
@@ -142,7 +161,7 @@ function updateItem(item) {
 			let itemStr = JSON.stringify(itemObj);
 
 			console.log("posting item to update", itemStr);
-			//updateItem(itemStr);
+			updateItem(itemStr);
 			$('#itemEditModal').modal('hide');
 		}, false);
 	});

@@ -1,6 +1,7 @@
 package fridge.domain.repo;
 
 import fridge.domain.item.Item;
+import fridge.domain.item.ItemRequest;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -51,9 +52,9 @@ public class ItemRepository {
 
     }
 
-    public Item updateItem(String id, LocalDateTime validUntilDate){
-        Query query = new Query(Criteria.where("_id").is(id));
-        mongoTemplate.updateFirst(query, Update.update("validUntilDate",validUntilDate), Item.class, ITEM_COLLECTION);
+    public Item updateItem(Item itemRequest){
+        Query query = new Query(Criteria.where("_id").is(itemRequest.getId()));
+        mongoTemplate.save(itemRequest, ITEM_COLLECTION);
         return mongoTemplate.findOne(query, Item.class, ITEM_COLLECTION);
     }
 
