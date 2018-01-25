@@ -39,7 +39,6 @@ public class FridgeController {
             log.error("item not found: {0}", name);
             throw new ItemNotFoundException("Item not found: {0}", name);
         }
-
         return ResponseBuilder.okItem(itemResponse);
     }
 
@@ -53,7 +52,6 @@ public class FridgeController {
             log.error("item not found id: {0}", id);
             throw new ItemNotFoundException("Item not found id: {0}", id);
         }
-
         return ResponseBuilder.okItem(itemResponse);
     }
 
@@ -101,7 +99,13 @@ public class FridgeController {
     @ResponseBody
     public ResponseEntity<?> updateItem(@RequestBody @Valid ItemRequest item) {
         log.info("updating Item: {}", item.getName());
-        Item itemResponse = itemService.updateItem(item);
+        Item itemResponse = itemService.findItemById(item.getId());
+        if (itemResponse == null) {
+            log.error("item not found id: {0}", item.getId());
+            throw new ItemNotFoundException("Item not found id: {0}", item.getId());
+        }
+
+        itemResponse = itemService.updateItem(item);
 
         if (itemResponse == null) {
             log.error("item not found: {}", item.getName());
