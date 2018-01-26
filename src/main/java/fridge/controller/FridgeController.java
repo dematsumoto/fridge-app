@@ -61,7 +61,9 @@ public class FridgeController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
     public ResponseEntity<?> fridgeAll() {
+        log.info("Retrieving all Items");
         List<Item> itemList = itemService.findAllItems();
 
         if (itemList.isEmpty()){
