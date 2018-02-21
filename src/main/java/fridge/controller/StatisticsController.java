@@ -1,6 +1,7 @@
 package fridge.controller;
 
 import fridge.service.ItemService;
+import fridge.service.StatisticsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,9 @@ public class StatisticsController {
 
     @Autowired
     ItemService itemService;
+
+    @Autowired
+    StatisticsService statsService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/overview")
     @ResponseBody

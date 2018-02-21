@@ -2,6 +2,7 @@ package fridge.service;
 
 import fridge.domain.item.Item;
 import fridge.domain.repo.ItemRepository;
+import org.joda.time.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,17 @@ public class StatisticsService {
 
     private HashMap<String, Integer> classifyItems(List<Item> itemList){
         HashMap<Integer, String> itemMap = new HashMap<>();
-        
+        int exppireSoonItems;
+        int expiredItems;
+        int stillGoodItems;
+
+        DateTime today = new DateTime();
+        Duration diffDays;
+
+        for (Item item:itemList){
+            diffDays = new Duration(today, item.getValidUntilDate().toDateTime());
+            System.out.println(diffDays.getStandardDays());
+        }
         return null;
     }
 }
