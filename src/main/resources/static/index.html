@@ -233,7 +233,7 @@
                             <div class="col-xs-7">
                                 <div class="numbers">
                                     <p>Expired</p>
-                                    3
+                                    <div id="expired-number"></div>
                                 </div>
                             </div>
                         </div>
@@ -257,8 +257,8 @@
                             </div>
                             <div class="col-xs-7">
                                 <div class="numbers">
-                                    <p>Expires Tomorrow</p>
-                                    6
+                                    <p>Expires Soon</p>
+                                    <div id="exp-soon-number"></div>
                                 </div>
                             </div>
                         </div>
@@ -430,6 +430,9 @@
 <!-- Javascript methods to access the Fridge API -->
 <script src="assets/js/fridge.js"></script>
 
+<!-- Javascript methods to access the Stats API -->
+<script src="assets/js/stats.js"></script>
+
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
 
@@ -440,6 +443,7 @@
    $(document).ready(function(){
      demo.initChartist();
      getAllItems();
+     getFridgeOverview();
  });
 
 </script>

@@ -89,7 +89,8 @@ function addItemSuccess(){
     successNotification("Your item has been successfully added to the fridge!");
 	var form = document.getElementById("addItemForm");
 	form.reset();
-	getAllItems();	
+	getAllItems();
+	getFridgeOverview();	
 }
 
 function successNotification(message){
@@ -106,6 +107,7 @@ function deleteRequest(trashIcon){
     success: function(result) {
         successNotification(item + " removed from fridge!");
         getAllItems();
+        getFridgeOverview();
     }
 });
 }
