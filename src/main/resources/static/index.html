@@ -47,7 +47,7 @@
    <div class="sidebar-wrapper">
     <div class="logo">
         <a href="http://www.creative-tim.com" class="simple-text">
-            Creative Tim
+            App List
         </a>
     </div>
 
@@ -55,31 +55,13 @@
         <li class="active">
             <a href="index.html">
                 <i class="ti-pencil-alt"></i>
-                <p>Fridge</p>
+                <p>Fridge Tracker</p>
             </a>
         </li>
         <li>
             <a href="#">
                 <i class="ti-user"></i>
                 <p>User Profile</p>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="ti-view-list-alt"></i>
-                <p>Table List</p>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="ti-text"></i>
-                <p>Typography</p>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="ti-pencil-alt2"></i>
-                <p>Icons</p>
             </a>
         </li>
         <li>
@@ -92,12 +74,6 @@
             <a href="#">
                 <i class="ti-bell"></i>
                 <p>Notifications</p>
-            </a>
-        </li>
-        <li class="active-pro">
-            <a href="upgrade.html">
-                <i class="ti-export"></i>
-                <p>Upgrade to PRO</p>
             </a>
         </li>
     </ul>
@@ -158,7 +134,7 @@
                     <span class="icon-bar bar2"></span>
                     <span class="icon-bar bar3"></span>
                 </button>
-                <a class="navbar-brand" href="#">Dashboard</a>
+                <a class="navbar-brand" href="#">Fridge App</a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -307,10 +283,10 @@
                             <div class="card">
                                 <div class="header">
                                     <h4 class="title">Statistics</h4>
-                                    <p class="category">Last Campaign Performance</p>
+                                    <p class="category">Your Fridge Overview</p>
                                 </div>
                                 <div class="content">
-                                    <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+                                    <canvas id="overviewChart" class="ct-chart ct-perfect-fourth"></canvas>
                                     <div class="footer">
                                         <div class="chart-legend">
                                             <i class="fa fa-circle text-success"></i> Good
@@ -418,8 +394,7 @@
 <!--  Checkbox, Radio & Switch Plugins -->
 <script src="assets/js/bootstrap-checkbox-radio.js"></script>
 
-<!--  Charts Plugin -->
-<script src="assets/js/chartist.min.js"></script>
+<!--  Charts Plugin  <script src="assets/js/chartist.min.js"></script> -->
 
 <!--  Notifications Plugin    -->
 <script src="assets/js/bootstrap-notify.js"></script>
@@ -439,11 +414,14 @@
 <!-- UI Plugins such as datePicker -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<!-- Plugin for charts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+
 <script type="text/javascript">
    $(document).ready(function(){
-     demo.initChartist();
      getAllItems();
      getFridgeOverview();
+     initOverviewChart();
  });
 
 </script>
