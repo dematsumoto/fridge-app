@@ -3,31 +3,57 @@ var expireSoon = 0;
 var stillGoodItems = 0;
 var pieData = [];
 
+var overviewChart;
+var isChartInitialized = false;
+
+
 function getFridgeOverview(){
-	var overview;
 	$.getJSON( "/fridgeStats/overview")
     .done(function(data){
-	overview = data;
 	expiredItems = data.expiredItems;
 	expireSoon = data.expireSoonItems;
 	stillGoodItems = data.stillGoodItems;
 	$('#expired-number').html(expiredItems);
 	$('#exp-soon-number').html(expireSoon);
 	pieData = [expiredItems, expireSoon, stillGoodItems];
-	initOverviewChart();
+	createOrUpdateChart(pieData);
 	})
 }
 
+function createOrUpdateChart(newPieData){
+	if (isChartInitialized){
+		updateChartData(newPieData);
+	}
+	else {
+		initOverviewChart();
+	}
+}
+
+function updateChartData(newPieData){
+	overviewChart.data.datasets.forEach((dataset) => {
+		dataset.data = newPieData;
+	});
+	overviewChart.update();
+}
+
+
 function initOverviewChart(){
 	var ctx = document.getElementById("overviewChart");
-	var overviewChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: retrieveDataSet()
+	overviewChart = new Chart(ctx, {
+	    type: 'doughnut',
+	    data: retrieveDataSet(),
+	    options: {
+	    	legend: {
+	    		position: 'bottom'
+	    	}
+    	}	
 	});
+
+	isChartInitialized = true;
 }
 
 function retrieveDataSet(){
-	var dataSet = {
+	var data = {
 		labels: ['Expired', 'Soon','Good'],
 	    datasets: [{
 	    	data: pieData,
@@ -44,9 +70,5 @@ function retrieveDataSet(){
 	    	]
 	    }]
 	}
-	return dataSet;
+	return data;
 }
-
-
-
-
