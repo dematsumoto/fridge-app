@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class StatisticsService {
 
-    public static final int ZERO = 0;
+    private static final int ZERO = 0;
 
     @Autowired
     ItemRepository itemRepository;

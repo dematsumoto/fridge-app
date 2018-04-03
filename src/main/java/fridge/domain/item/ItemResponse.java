@@ -20,6 +20,7 @@ public class ItemResponse {
     private String startDate;
     private String validUntilDate;
     private boolean active;
+    private String status;
 
     public ItemResponse(){}
 }

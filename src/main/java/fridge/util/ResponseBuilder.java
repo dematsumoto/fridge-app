@@ -3,6 +3,7 @@ package fridge.util;
 import fridge.domain.SuccessMessage;
 import fridge.domain.item.Item;
 import fridge.domain.item.ItemResponse;
+import fridge.service.ItemService;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -22,9 +23,10 @@ public class ResponseBuilder {
         ItemResponse itemResponse = ItemResponse.builder().id(item.getId()).name(item.getName())
                 .startDate(DateUtil.dateToStringFormatter(item.getStartDate()))
                 .validUntilDate(DateUtil.dateToStringFormatter(item.getValidUntilDate())).active(item.isActive())
+                .status(ItemService.setItemStatus(item.getValidUntilDate()))
                 .build();
 
-        return new ResponseEntity<ItemResponse>(itemResponse, HttpStatus.OK);
+        return new ResponseEntity<>(itemResponse, HttpStatus.OK);
     }
 
     public static ResponseEntity<List<ItemResponse>> okItem(List<Item> listItem) {
@@ -34,19 +36,20 @@ public class ResponseBuilder {
             ItemResponse itemResponse = ItemResponse.builder().id(item.getId()).name(item.getName())
                     .startDate(DateUtil.dateToStringFormatter(item.getStartDate()))
                     .validUntilDate(DateUtil.dateToStringFormatter(item.getValidUntilDate())).active(item.isActive())
+                    .status(ItemService.setItemStatus(item.getValidUntilDate()))
                     .build();
             items.add(itemResponse);
 
         }
 
-        return new ResponseEntity<List<ItemResponse>>(items, HttpStatus.OK);
+        return new ResponseEntity<>(items, HttpStatus.OK);
 
     }
 
     public static ResponseEntity<SuccessMessage> okMessage (String messageBody){
         SuccessMessage message = SuccessMessage.builder().ts(DateUtil.dateToStringFormatter(LocalDateTime.now()))
                 .message(messageBody).build();
-        return new ResponseEntity<SuccessMessage>(message, HttpStatus.OK);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
 
