@@ -1,27 +1,49 @@
 package service;
 
-import fridge.controller.FridgeController;
+import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.notNullValue;
+
+import fridge.domain.item.Item;
+import fridge.domain.item.ItemRequest;
 import fridge.domain.repo.ItemRepository;
+import fridge.exception.InvalidAddItemCriteriaException;
 import fridge.service.ItemService;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Created by dmatsumoto on 11/1/17.
- */
-
+@RunWith(MockitoJUnitRunner.class)
 public class ItemServiceTest {
 
+    @Mock
+    ItemRepository itemRepository;
+
+    @InjectMocks
+    ItemService itemService;
+
+    @Test
+    public void findItemTest_withName_shouldReturnItem(){
+        when(itemRepository.findItemByName("Banana")).thenReturn(new Item());
+        assertThat(itemService.findItem("Banana"), notNullValue());
+    }
+
+    @Test(expected = InvalidAddItemCriteriaException.class)
+    public void postITem_withEmptyName_shouldThrowException(){
+        itemService.postItem(new ItemRequest("123","", "2018-03-13","2018-03-13", true));
+    }
+
+    @Test(expected = InvalidAddItemCriteriaException.class)
+    public void postITem_withEmptyStartDate_shouldThrowException(){
+        itemService.postItem(new ItemRequest("123","Banana", "","2018-03-13", true));
+    }
+
+    @Test(expected = InvalidAddItemCriteriaException.class)
+    public void postITem_withEmptyValidUntilDate_shouldThrowException(){
+        itemService.postItem(new ItemRequest("123","Banana", "2018-03-13","", true));
+    }
 
 }
