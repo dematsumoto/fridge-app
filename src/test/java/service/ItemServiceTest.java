@@ -9,6 +9,8 @@ import fridge.domain.item.ItemRequest;
 import fridge.domain.repo.ItemRepository;
 import fridge.exception.InvalidAddItemCriteriaException;
 import fridge.service.ItemService;
+import org.joda.time.LocalDateTime;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -24,6 +26,15 @@ public class ItemServiceTest {
 
     @InjectMocks
     ItemService itemService;
+
+    Item itemSample;
+    ItemRequest itemRequest;
+
+    @Before
+    public void setup(){
+        itemSample = new Item("Milk", LocalDateTime.now(), LocalDateTime.now(), true);
+        itemRequest = new ItemRequest("123","milk", "2018-03-13","2018-03-13", true);
+    }
 
     @Test
     public void findItemTest_withName_shouldReturnItem(){
@@ -44,6 +55,27 @@ public class ItemServiceTest {
     @Test(expected = InvalidAddItemCriteriaException.class)
     public void postITem_withEmptyValidUntilDate_shouldThrowException(){
         itemService.postItem(new ItemRequest("123","Banana", "2018-03-13","", true));
+    }
+
+    @Test
+    public void postITem_withValidRequest_shouldNotThrowException(){
+        itemService.postItem(itemRequest);
+    }
+
+    @Test
+    public void updateITem_withItem_shouldReturnItem(){
+        when(itemRepository.updateItem(itemSample)).thenReturn(new Item());
+        assertThat(itemRepository.updateItem(itemSample), notNullValue());
+    }
+
+    @Test(expected = InvalidAddItemCriteriaException.class)
+    public void updateItem_withEmptyId_shouldThrowException(){
+        itemService.updateItem(new ItemRequest("","Banana","2018-03-13","2018-03-13",true));
+    }
+
+    @Test
+    public void setItemStatus_withExpiredItem(){
+        //itemService.setItemStatus()
     }
 
 }
