@@ -43,7 +43,6 @@ public class StatisticsService {
             else {
                 stillGoodItems++;
             }
-
         }
         return new Overview(expireSoonItems, expiredItems, stillGoodItems);
     }

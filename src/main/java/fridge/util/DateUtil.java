@@ -11,7 +11,6 @@ public final class DateUtil {
     public static String dateToStringFormatter(LocalDateTime dateTime){
         DateTimeFormatter formatter = DateTimeFormat.forPattern(DATE_FORMAT);
         return formatter.print(dateTime);
-
     }
 
     public static LocalDateTime stringToDateFormatter(String dateTime){
