@@ -12,11 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
-/**
- * Created by douglas on 10/3/17.
- */
-
 @Repository
 public class ItemRepository {
 

@@ -1,5 +1,6 @@
 package service;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -73,9 +74,29 @@ public class ItemServiceTest {
         itemService.updateItem(new ItemRequest("","Banana","2018-03-13","2018-03-13",true));
     }
 
-    @Test
-    public void setItemStatus_withExpiredItem(){
-        //itemService.setItemStatus()
+    @Test(expected = InvalidAddItemCriteriaException.class)
+    public void inactivateItem_withEmptyId_shouldThrowException(){
+        itemService.inactivateItem(new ItemRequest("","Banana","2018-03-13","2018-03-13",true));
     }
 
+    @Test
+    public void setItemStatus_withExpiredItem_shouldReturnExpired(){
+        LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
+        String status = itemService.setItemStatus(yesterday);
+        assertThat(status, equalTo("Expired"));
+    }
+
+    @Test
+    public void setItemStatus_withExpireSoonItem_shouldReturnExpireSoon(){
+        LocalDateTime today = LocalDateTime.now();
+        String status = itemService.setItemStatus(today);
+        assertThat(status, equalTo("ExpireSoon"));
+    }
+
+    @Test
+    public void setItemStatus_withStillGoodItem_shouldReturnGood(){
+        LocalDateTime future = LocalDateTime.now().plusDays(2);
+        String status = itemService.setItemStatus(future);
+        assertThat(status, equalTo("Good"));
+    }
 }

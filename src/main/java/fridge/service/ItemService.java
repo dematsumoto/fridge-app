@@ -16,9 +16,6 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 
-/**
- * Created by douglas on 10/3/17.
- */
 @Service
 public class ItemService {
 
@@ -94,7 +91,7 @@ public class ItemService {
 
     public void inactivateItem(ItemRequest itemRequest){
         if (StringUtils.isEmpty(itemRequest.getId())){
-            throw new InvalidAddItemCriteriaException("is is required to inactivate an Item");
+            throw new InvalidAddItemCriteriaException("id is required to inactivate an Item");
         }
 
         itemRepository.inactivateItem(itemRequest.getId());

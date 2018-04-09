@@ -14,11 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import javax.validation.Valid;
 import java.util.List;
 
-
-
-/**
- * Created by douglas on 10/3/17.
- */
 @Slf4j
 @RequestMapping("/fridge")
 @RestController
@@ -27,7 +22,6 @@ public class FridgeController {
 
     @Autowired
     ItemService itemService;
-
 
     @RequestMapping(method = RequestMethod.GET, value = "/item/{name}")
     @ResponseBody
