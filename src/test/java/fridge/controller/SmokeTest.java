@@ -29,7 +29,6 @@ public class SmokeTest {
 
     }
 
-
     @Test
     public void greetingShouldReturnDefaultMessage() throws Exception {
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/greeting",

@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class StatisticsController {
 
     @Autowired
-    ItemService itemService;
-
-    @Autowired
     StatisticsService statsService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/overview")
