@@ -8,10 +8,6 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 
-/**
- * Created by douglas on 10/3/17.
- */
-
 @Getter
 @Setter
 @AllArgsConstructor

@@ -1,22 +1,16 @@
 package fridge.util;
 
-import fridge.domain.SuccessMessage;
+import fridge.domain.message.SuccessMessage;
 import fridge.domain.item.Item;
 import fridge.domain.item.ItemResponse;
 import fridge.service.ItemService;
 import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by douglas on 10/27/17.
- */
 public class ResponseBuilder {
 
     public static ResponseEntity<ItemResponse> okItem(Item item){

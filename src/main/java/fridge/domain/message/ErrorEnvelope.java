@@ -1,12 +1,8 @@
-package fridge.domain.error;
+package fridge.domain.message;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-
-/**
- * Created by douglas on 10/19/17.
- */
 
 @Getter
 @ToString

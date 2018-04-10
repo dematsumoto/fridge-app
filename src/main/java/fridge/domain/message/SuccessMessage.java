@@ -1,10 +1,6 @@
-package fridge.domain;
+package fridge.domain.message;
 
 import lombok.*;
-
-/**
- * Created by dmatsumoto on 10/26/17.
- */
 
 @Setter
 @Getter

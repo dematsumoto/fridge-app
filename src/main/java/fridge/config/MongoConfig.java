@@ -7,10 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-/**
- * Created by douglas on 10/3/17.
- */
-
 @Configuration
 public class MongoConfig {
 

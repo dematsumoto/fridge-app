@@ -6,10 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.text.MessageFormat;
 
-/**
- * Created by douglas on 10/18/17.
- */
-
 @Slf4j
 public class ItemNotFoundException extends RuntimeException{
 
