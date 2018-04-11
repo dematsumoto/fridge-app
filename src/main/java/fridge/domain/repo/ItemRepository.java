@@ -44,7 +44,11 @@ public class ItemRepository {
     public Item removeItem(String name){
         Query query = new Query(Criteria.where("name").is(name));
         return mongoTemplate.findAndRemove(query, Item.class, ITEM_COLLECTION);
+    }
 
+    public Item removeItemById(String id){
+        Query query = new Query(Criteria.where("_id").is(id));
+        return mongoTemplate.findAndRemove(query, Item.class, ITEM_COLLECTION);
     }
 
     public Item updateItem(Item itemRequest){

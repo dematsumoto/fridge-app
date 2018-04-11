@@ -23,20 +23,7 @@ public class FridgeController {
     @Autowired
     ItemService itemService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/item/{name}")
-    @ResponseBody
-    public ResponseEntity<?> fridge(@PathVariable String name){
-        log.info("Fetching item given name: {}", name);
-        Item itemResponse = itemService.findItem(name);
-
-        if (itemResponse == null) {
-            log.error("item not found: {0}", name);
-            throw new ItemNotFoundException("Item not found: {0}", name);
-        }
-        return ResponseBuilder.okItem(itemResponse);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/item/{id}")
     @ResponseBody
     public ResponseEntity<?> getById(@PathVariable String id){
         log.info("Fetching item given id: {}", id);
@@ -76,15 +63,32 @@ public class FridgeController {
         return new ResponseEntity<>(item, HttpStatus.ACCEPTED);
     }
 
+    //TODO
+    //Remove this method and replace by deleteItemById()
     @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
     @ResponseBody
-    public ResponseEntity<?> deleteItem(@PathVariable String name){
+    public ResponseEntity<?> deleteItemByName(@PathVariable String name){
         log.info("Deleting item given name: {}", name);
         Item itemResponse = itemService.removeItem(name);
 
         if (itemResponse == null) {
             log.error("item not found: {0}", name);
             throw new ItemNotFoundException("Item not found: {0}", name);
+        }
+
+        String message = "Item successfully removed: " + itemResponse.getName();
+        return ResponseBuilder.okMessage(message);
+    }
+
+    @RequestMapping(value = "/item/{id}/delete", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity<?> deleteItemById(@PathVariable String id){
+        log.info("Deleting item given id: {}", id);
+        Item itemResponse = itemService.removeItemById(id);
+
+        if (itemResponse == null) {
+            log.error("item not found: {0}", id);
+            throw new ItemNotFoundException("Item not found: {0}", id);
         }
 
         String message = "Item successfully removed: " + itemResponse.getName();

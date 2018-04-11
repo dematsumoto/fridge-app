@@ -66,7 +66,10 @@ public class ItemService {
 
     public Item removeItem(String name){
         return itemRepository.removeItem(name);
+    }
 
+    public Item removeItemById(String id){
+        return itemRepository.removeItem(id);
     }
 
     public Item updateItem(ItemRequest itemRequest){
