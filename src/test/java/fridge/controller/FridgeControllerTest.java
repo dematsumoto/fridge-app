@@ -27,6 +27,7 @@ public class FridgeControllerTest {
     private static final String INVALID_ID = "123";
     private static final String VALID_ID = "1234";
     private static final String FRIDGE_PATH = "/fridge/";
+    private static final String ITEM_PATH = "/item/";
 
     @Autowired
     private MockMvc mockMvc;
@@ -38,14 +39,14 @@ public class FridgeControllerTest {
     public void findById_withNonExistentId_shouldReturnBadRequest() throws Exception{
         when(itemService.findItemById(INVALID_ID)).thenReturn(null);
 
-        this.mockMvc.perform(get(FRIDGE_PATH + INVALID_ID)).andExpect(status().isBadRequest());
+        this.mockMvc.perform(get(FRIDGE_PATH + ITEM_PATH + INVALID_ID)).andExpect(status().isBadRequest());
     }
 
     @Test
     public void findById_withExistingId_shouldReturnItem() throws Exception{
         when(itemService.findItemById(VALID_ID)).thenReturn(new Item("Milk", LocalDateTime.now(), LocalDateTime.now(), true));
 
-        this.mockMvc.perform(get(FRIDGE_PATH + VALID_ID)).andExpect(status().isOk());
+        this.mockMvc.perform(get(FRIDGE_PATH + ITEM_PATH+ VALID_ID)).andExpect(status().isOk());
     }
 
     @Test
