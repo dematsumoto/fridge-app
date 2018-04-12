@@ -100,12 +100,13 @@ function successNotification(message){
 }
 
 function deleteRequest(trashIcon){
-	var item = $(trashIcon).closest('tr').find('.name').text();
+	var tableIndex = $(trashIcon).closest('tr').index();
+	item = itemList[tableIndex];
 	$.ajax({
-    url: '/fridge/' + item,
+    url: '/fridge/item/' + item.id + '/delete',
     type: 'DELETE',
     success: function(result) {
-        successNotification(item + " removed from fridge!");
+        successNotification(item.name + " removed from fridge!");
         getAllItems();
         getFridgeOverview();
     }
@@ -162,7 +163,6 @@ function updateItem(item) {
 			itemObj.id = currentItem.id;
 			let itemStr = JSON.stringify(itemObj);
 
-			console.log("posting item to update", itemStr);
 			updateItem(itemStr);
 			$('#itemEditModal').modal('hide');
 		}, false);
