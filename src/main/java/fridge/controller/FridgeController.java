@@ -63,23 +63,6 @@ public class FridgeController {
         return new ResponseEntity<>(item, HttpStatus.ACCEPTED);
     }
 
-    //TODO
-    //Remove this method and replace by deleteItemById()
-    @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public ResponseEntity<?> deleteItemByName(@PathVariable String name){
-        log.info("Deleting item given name: {}", name);
-        Item itemResponse = itemService.removeItem(name);
-
-        if (itemResponse == null) {
-            log.error("item not found: {0}", name);
-            throw new ItemNotFoundException("Item not found: {0}", name);
-        }
-
-        String message = "Item successfully removed: " + itemResponse.getName();
-        return ResponseBuilder.okMessage(message);
-    }
-
     @RequestMapping(value = "/item/{id}/delete", method = RequestMethod.DELETE)
     @ResponseBody
     public ResponseEntity<?> deleteItemById(@PathVariable String id){

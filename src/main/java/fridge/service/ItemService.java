@@ -38,13 +38,20 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
+    public void createSample(String itemId) {
+        LocalDateTime startDate = LocalDateTime.now();
+        LocalDateTime validUntilDate= startDate.plusDays(5);
+
+        Item sample = new Item(itemId,"test", startDate, validUntilDate,true);
+        itemRepository.create(sample);
+    }
+
     public void createSample() {
         LocalDateTime startDate = LocalDateTime.now();
         LocalDateTime validUntilDate= startDate.plusDays(5);
 
         Item sample = new Item("test", startDate, validUntilDate,true);
         itemRepository.create(sample);
-
     }
 
     public void postItem(ItemRequest itemRequest) {

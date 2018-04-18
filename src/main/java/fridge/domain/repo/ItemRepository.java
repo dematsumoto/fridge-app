@@ -21,7 +21,6 @@ public class ItemRepository {
     final String ITEM_COLLECTION = "item";
 
     public void create(Item item){
-
         mongoTemplate.insert(item);
     }
 
