@@ -17,7 +17,6 @@ function getAllItems(){
         	$("#table-all-items").append("<tr><td class=\"name\">" + item.name + "</td>"
         		+ "<td>" + item.startDate + " </td>"
         		+ "<td>" + item.validUntilDate + "</td>"
-        		+ "<td>" + "status test" + " </td>"
         		+ "<td>"
         		+ generateEditIconTableCell()
         		+ generateDeleteIconTableCell())
