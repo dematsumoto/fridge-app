@@ -14,7 +14,8 @@ function getAllItems(){
 		}
         $.each(items, function(i,item) {
         	var itemName = item.name;
-        	$("#table-all-items").append("<tr><td class=\"name\">" + item.name + "</td>"
+        	$("#table-all-items").append("<tr bgcolor=" + bgColorByStatus(item.status) + ">" 
+        		+ "<td class=\"name\">" + item.name + "</td>"
         		+ "<td>" + item.startDate + " </td>"
         		+ "<td>" + item.validUntilDate + "</td>"
         		+ "<td>"
@@ -46,6 +47,22 @@ function getAllItems(){
 		);
 	return DeleteIconHtml.join("");
 	}
+}
+
+function bgColorByStatus(status){
+	console.log(status);
+	var color;
+	if (status == "Good"){
+		color = "#7ac29a";
+	}
+	else if (status == "Expired"){
+		color = "#eb5e28";
+	}
+	else {
+		color = "#f3bb45";
+	}
+
+	return color;
 }
 
 function errorNotification(message){
