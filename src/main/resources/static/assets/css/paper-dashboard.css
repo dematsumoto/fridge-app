@@ -125,6 +125,9 @@ strong {
 .icon-danger {
   color: #EB5E28; }
 
+  .icon-black {
+  color: #000000; }
+
 .chart-legend .text-primary, .chart-legend .text-primary:hover {
   color: #7A9E9F; }
 .chart-legend .text-info, .chart-legend .text-info:hover {

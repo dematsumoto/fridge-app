@@ -32,7 +32,7 @@ function getAllItems(){
 		var editIconHtml = [];
 		editIconHtml.push(
 			"<a href=\"#\" onclick=\"editItemModal(this)\">",
-			"<i class=\"ti-pencil icon-medium icon-info\">",
+			"<i class=\"ti-pencil icon-medium icon-black\">",
 			"</i></a>"
 			);
 		return editIconHtml.join("");
@@ -42,7 +42,7 @@ function getAllItems(){
 	var DeleteIconHtml = [];
 	DeleteIconHtml.push(
 			"<a href=\"#\" onclick=\"deleteRequest(this)\">",
-			"<i class=\"ti-trash icon-medium icon-danger\">",
+			"<i class=\"ti-trash icon-medium icon-black\">",
 			"</i></a>"
 		);
 	return DeleteIconHtml.join("");
@@ -50,16 +50,15 @@ function getAllItems(){
 }
 
 function bgColorByStatus(status){
-	console.log(status);
 	var color;
 	if (status == "Good"){
-		color = "#7ac29a";
+		color = "#AAD8BE";
 	}
 	else if (status == "Expired"){
-		color = "#eb5e28";
+		color = "#F29876";
 	}
 	else {
-		color = "#f3bb45";
+		color = "#F8D999";
 	}
 
 	return color;
