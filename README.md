@@ -15,3 +15,7 @@ to build the application. To start, run the command:
 `./gradlew bootRun`
 The application should start at:
 `localhost:8080`
+
+### Additionial Info ###
+
+* The UI Template is from [Creative Tim](https://www.creative-tim.com/) and modified for the application needs.
