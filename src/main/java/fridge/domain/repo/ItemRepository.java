@@ -1,8 +1,6 @@
 package fridge.domain.repo;
 
 import fridge.domain.item.Item;
-import fridge.domain.item.ItemRequest;
-import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -16,9 +14,9 @@ import java.util.List;
 public class ItemRepository {
 
     @Autowired
-    MongoTemplate mongoTemplate;
+    private MongoTemplate mongoTemplate;
 
-    final String ITEM_COLLECTION = "item";
+    final private String ITEM_COLLECTION = "item";
 
     public void create(Item item){
         mongoTemplate.insert(item);

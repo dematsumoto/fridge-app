@@ -5,9 +5,11 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 @Configuration
+@PropertySource({ "classpath:application-${envTarget:dev}.properties" })
 public class MongoConfig {
 
     @Bean
@@ -24,4 +26,5 @@ public class MongoConfig {
     public MongoClientOptions mongoOptions() {
         return MongoClientOptions.builder().serverSelectionTimeout(5000).build();
     }
+
 }
