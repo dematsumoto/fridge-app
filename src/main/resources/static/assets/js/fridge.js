@@ -223,3 +223,7 @@ function editItemModal(item){
 $(function() {
 	$( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
 });
+
+function howToModal(item){
+	$('#howToModal').modal();
+}

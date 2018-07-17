@@ -58,28 +58,46 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="#" onclick="howToModal()">
                 <i class="ti-user"></i>
-                <p>User Profile</p>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="ti-map"></i>
-                <p>Maps</p>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="ti-bell"></i>
-                <p>Notifications</p>
+                <p>Instructions</p>
             </a>
         </li>
     </ul>
 </div>
 </div>
 
-<!-- Modal -->
+<!-- How to Modal -->
+<div class="modal fade" id="howToModal" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">How to use this Webapp?</h5>
+    </div>
+    <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <ul>
+                            <li>Use the form at the bottom of the page to add new item to the fridge.</li>
+                            <li>Click on the Pencil to open a modal and edit the item.</li>
+                            <li>Click on the Trash bin to remove an item form the fridge.</li>
+                            <li>The Pie chart indicates the amount of items by their current status. It automatically updates whenever you make a change (add, edit, remove).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success btn-fill btn-wd" data-dismiss="modal">Got it!</button>
+    </div>
+</div>
+</div>
+</div>
+
+
+<!-- Edit Modal -->
 <div class="modal fade" id="itemEditModal" role="dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
