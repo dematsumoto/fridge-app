@@ -67,14 +67,14 @@ function bgColorByStatus(status){
 function errorNotification(message){
         $.notify({
             icon: 'ti-close', message: message}, {
-            type: 'danger', timer: 3000
+            type: 'danger', timer: 2000
             });
 };
 
 function emptyFridgeNotification(){
             $.notify({
                 icon: 'ti-info-alt', message: "Fridge is empty"}, {
-                type: 'info', timer: 3000
+                type: 'info', timer: 2000
                 });
 }
 
@@ -111,7 +111,7 @@ function addItemSuccess(){
 
 function successNotification(message){
     $.notify({icon: 'ti-check', message: message},{
-                    type: 'success', timer: 3000
+                    type: 'success', timer: 2000
                 });
 }
 
