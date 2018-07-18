@@ -24,77 +24,76 @@
     <link href="assets/css/themify-icons.css" rel="stylesheet">
 </head>
 <body>
-    <div class="wrapper">
-        <!-- How to Modal -->
-        <div class="modal fade" id="howToModal" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">How to use this Webapp?</h5>
+    <!-- How to Modal -->
+    <div class="modal fade" id="howToModal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">How to use this Webapp?</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <ul>
+                                    <li>Use the form at the bottom of the page to add new item to the fridge.</li>
+                                    <li>Click on the Pencil <i class="ti-pencil"></i> to open a modal and edit the item.</li>
+                                    <li>Click on the Trash bin <i class="ti-trash"></i> to remove an item from the fridge.</li>
+                                    <li>The Pie chart indicates the amount of items by their current status. It automatically updates whenever you make a change (add, edit, remove).</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-body">
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success btn-fill btn-wd" data-dismiss="modal">Got it!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Modal -->
+    <div class="modal fade" id="itemEditModal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Item</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="editItemForm" method="post">
                         <div class="row">
-                            <div class="col-md-12">
-                                <div>
-                                    <ul>
-                                        <li>Use the form at the bottom of the page to add new item to the fridge.</li>
-                                        <li>Click on the Pencil <i class="ti-pencil"></i> to open a modal and edit the item.</li>
-                                        <li>Click on the Trash bin <i class="ti-trash"></i> to remove an item from the fridge.</li>
-                                        <li>The Pie chart indicates the amount of items by their current status. It automatically updates whenever you make a change (add, edit, remove).</li>
-                                    </ul>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input id="editName" type="text" class="form-control border-input" name="name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <input id="editSD" type="text" class="form-control border-input datepicker" name="startDate">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Expiration Date</label>
+                                    <input id="editED" type="text" class="form-control border-input datepicker" name="validUntilDate">
                                 </div>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success btn-fill btn-wd" data-dismiss="modal">Got it!</button>
-                    </div>
+                        <button type="button" class="btn btn-danger btn-fill btn-wd" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success btn-fill btn-wd">Save changes</button>
+                    </form>
                 </div>
             </div>
         </div>
-        <!-- Edit Modal -->
-        <div class="modal fade" id="itemEditModal" role="dialog">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Item</h5>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editItemForm" method="post">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Name</label>
-                                        <input id="editName" type="text" class="form-control border-input" name="name">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Start Date</label>
-                                        <input id="editSD" type="text" class="form-control border-input datepicker" name="startDate">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Expiration Date</label>
-                                        <input id="editED" type="text" class="form-control border-input datepicker" name="validUntilDate">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger btn-fill btn-wd" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success btn-fill btn-wd">Save changes</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    </div>
+    <div class="wrapper">
         <div class="sidebar" data-background-color="white" data-active-color="danger">
             <div class="sidebar-wrapper">
                 <div class="logo">
@@ -353,35 +352,39 @@
                                     <i class="ti-github"></i> Source Code
                                 </a>
                             </li>
-                        </nav>
+                        </ul>
+                    </nav>
                         <div class="copyright pull-right">
                             &copy; <script>document.write(new Date().getFullYear())</script>, made by Douglas Matsumoto, UI Template by <a href="http://www.creative-tim.com">Creative Tim</a>
                         </div>
                     </div>
             </footer>
             <div class="load"></div>
-            </body>
-            <!--   Core JS Files   -->
-            <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
-            <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-            <!--  Checkbox, Radio & Switch Plugins -->
-            <script src="assets/js/bootstrap-checkbox-radio.js"></script>
-            <!--  Notifications Plugin    -->
-            <script src="assets/js/bootstrap-notify.js"></script>
-            <!-- Javascript methods to access the Fridge API -->
-            <script src="assets/js/fridge.js"></script>
-            <!-- Javascript methods to access the Stats API -->
-            <script src="assets/js/stats.js"></script>
-            <!-- UI Plugins such as datePicker -->
-            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-            <!-- Plugin for charts -->
-            <script src="assets/js/chartjs.js"></script>
-            <!-- Javascript Util methods -->
-            <script src="assets/js/utils.js"></script>
-            <script type="text/javascript">
-                $(document).ready(function(){
-                    getAllItems();
-                    getFridgeOverview();
-                });
-            </script>
-            </html>
+        </div>
+    </div>
+</body>
+
+<!--   Core JS Files   -->
+<script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+<!--  Checkbox, Radio & Switch Plugins -->
+<script src="assets/js/bootstrap-checkbox-radio.js"></script>
+<!--  Notifications Plugin    -->
+<script src="assets/js/bootstrap-notify.js"></script>
+<!-- Javascript methods to access the Fridge API -->
+<script src="assets/js/fridge.js"></script>
+<!-- Javascript methods to access the Stats API -->
+<script src="assets/js/stats.js"></script>
+<!-- UI Plugins such as datePicker -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- Plugin for charts -->
+<script src="assets/js/chartjs.js"></script>
+<!-- Javascript Util methods -->
+<script src="assets/js/utils.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        getAllItems();
+        getFridgeOverview();
+    });
+</script>
+</html>
