@@ -15,6 +15,7 @@ function getFridgeOverview(){
 	stillGoodItems = data.stillGoodItems;
 	$('#expired-number').html(expiredItems);
 	$('#exp-soon-number').html(expireSoon);
+	$('#expired-number-notif').html(expiredItems);
 	pieData = [expiredItems, expireSoon, stillGoodItems];
 	createOrUpdateChart(pieData);
 	})
