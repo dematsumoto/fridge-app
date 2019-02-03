@@ -2,8 +2,9 @@
 
 ### What is this repository for? ###
 
-* This is a prototype web application to track items in your fridge. The idea is to not get lost until when your food is still good inside the fridge by adding them with a 'startDate' and 'expireDate' field. For example, right after you open your milk carton, you set the day you opened it and set the day it will expire (based on the information on the carton or your own experience).
+* This is a web application to track items in your fridge. The idea is to not get lost until when your food is still good inside the fridge by adding them with a 'startDate' and 'expireDate' field. For example, right after you open your milk carton, you set the day you opened it and set the day it will expire (based on the information on the carton or your own experience).
 * The color indicates the state of the items. Red means it passed the expiration date, yellow means it will expire on the current day or in the next, green means that it is at least 2 days from expiring.
+* A live demo of this project can be found [here](https://fridge-tracker-d.herokuapp.com)
 
 ### How do I set up? ###
 
